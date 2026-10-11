@@ -128,6 +128,8 @@ rejects remaining REA-owned paths. Never glob-clean shared `/tmp/rea-*` content.
 is opt-in, so stdout carries only protocol messages and command results.
 Request arguments, bridge tokens, and environment data are redacted from
 diagnostic logs.
+The [environment variable reference](docs/environment.md) lists every other
+setting REA reads.
 
 ## Real Hopper changes
 

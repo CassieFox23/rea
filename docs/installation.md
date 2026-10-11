@@ -1,6 +1,8 @@
 # Installation and setup
 
 REA separates installing its CLI from configuring external software and agents.
+The [environment variable reference](environment.md) lists every setting REA reads
+from the environment, with defaults.
 
 ## Start setup
 
