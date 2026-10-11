@@ -47,15 +47,20 @@ pre {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 code {
-  font-size: 0.9em;
+  font-size: max(0.9em, 0.75rem);
   overflow-wrap: anywhere;
 }
 p {
   margin: 0 0 1.2rem;
 }
+th,
+td {
+  overflow-wrap: anywhere;
+}
 h1,
 h2,
 h3 {
+  overflow-wrap: break-word;
   line-height: 1.14;
   font-weight: 650;
   letter-spacing: -0.035em;
@@ -158,6 +163,9 @@ section[id] {
   font-size: 0.9rem;
 }
 .navigation a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   color: var(--muted);
   text-decoration: none;
   white-space: nowrap;
@@ -455,9 +463,11 @@ section[id] {
 }
 .code-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  overflow-wrap: anywhere;
   padding: 0.6rem 1rem;
   border-bottom: 1px solid var(--line);
   color: var(--muted);
@@ -598,6 +608,9 @@ pre code {
   gap: 1.5rem;
 }
 .footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   color: var(--muted);
 }
 .page-heading {
@@ -746,7 +759,7 @@ pre code {
 .flywheel-node .flywheel-kicker {
   margin: 0 0 0.4rem;
   color: var(--accent);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -851,14 +864,14 @@ pre code {
     font-size: 0.75rem;
   }
   .flywheel-node .flywheel-kicker {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     letter-spacing: 0.05em;
   }
   .flywheel-center {
     font-size: 0.75rem;
   }
   .flywheel-retry {
-    font-size: 0.625rem;
+    font-size: 0.75rem;
   }
   .flywheel-projects {
     gap: 1rem;
@@ -1244,6 +1257,7 @@ pre code {
 }
 .agent-terminal .terminal-prompt {
   margin: 0;
+  overflow-wrap: anywhere;
   padding: 1.4rem;
   color: #f1f4f8;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -1754,7 +1768,7 @@ pre code {
   font-size: 0.75rem;
 }
 .expert-step-selector button span {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 .expert-analysis-grid {
   display: grid;
@@ -1768,7 +1782,7 @@ pre code {
 }
 .expert-assembly .code-header {
   padding: 0.7rem 0.8rem;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   cursor: pointer;
   list-style: none;
 }
@@ -1790,7 +1804,7 @@ pre code {
 .expert-assembly pre {
   margin: 0;
   padding: 0.8rem;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   line-height: 1.6;
 }
 .assembly-omission {
@@ -1838,7 +1852,7 @@ pre code {
 .expert-thought > .thought-label {
   margin-bottom: 0.6rem;
   color: var(--accent);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 .expert-thought > .expert-task {
@@ -1852,7 +1866,7 @@ pre code {
   margin: 0.9rem 0 0;
   padding-top: 0.8rem;
   border-top: 1px solid var(--line);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
 }
 .expert-facts div {
   display: flex;
@@ -1887,7 +1901,7 @@ pre code {
 .expert-caption {
   margin: 0.5rem 0 0;
   color: var(--muted);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   text-align: right;
 }
 .manual-work-summary {
@@ -2228,7 +2242,7 @@ pre code {
     text-align: left;
   }
   .expert-step-selector button {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
   .expert-step-selector button span {
     display: block;
