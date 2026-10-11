@@ -23,6 +23,11 @@ cases. Share setup without hiding inputs or expected evidence. For successful
 `.ok` assertion adds no coverage. Protocol fixtures must reject unmodeled
 commands and preserve actual producer reply shapes.
 
+Stateless source-analysis matrices may share a file-owned stdio MCP connection
+and retain representative compiled CLI parity checks. Every distinct source
+scenario still runs through the public workflow; session-lifecycle scenarios
+need their own sessions and cleanup assertions.
+
 Report unavailable authority as a named skip. Await owned cleanup before a
 verifier reports success. Native process inspectors are released at Vitest
 worker teardown; fork termination does not run Node exit hooks, and per-file
@@ -823,11 +828,24 @@ CI exercises the pinned Node.js runtime on native hosted runners:
 
 Package lanes assert the actual Node platform/architecture before verification
 and record those values with the Node version. The four-host package matrix
-runs at most two jobs concurrently with explicit timeouts and Node heap/thread
-limits; Windows retains its curated capability lane. Package checks cover
-installation, CLI/MCP discovery, target-free
-analysis, configuration backups/recovery, Evidence and owned lifecycle; Inspector
-checks execute source-owned loopback targets and special filename cases.
+runs up to four jobs concurrently on independent hosted runners with explicit
+timeouts and per-runner Node heap/thread limits; Windows retains its curated
+capability lane. Package checks cover installation, CLI/MCP discovery,
+target-free analysis, configuration backups/recovery, Evidence and owned
+lifecycle; Inspector checks execute source-owned loopback targets and special
+filename cases.
+
+The Apple artifact CLI/MCP lane uses one `macos-15` job to avoid adding demand
+for scarce macOS runner capacity. It runs the artifact-format and metadata
+verifiers, followed by one consolidated focused invocation containing all
+existing native and process-boundary regression paths.
+
+The Linux source-test shards download a shared runtime and generated test
+metadata snapshot produced by the build job with `npm run test:prepare`. The
+snapshot includes `dist/`, generated skills, the MCP tool catalog, product
+catalog, and managed-conformance metadata. Each shard still installs the locked
+dependencies and runs its assigned coverage-enabled tests; it no longer
+regenerates the same metadata independently.
 
 These native baseline checks complement the Linux source-test shards and the
 separate Apple-artifact and real-provider lanes. Actual Hopper, Ghidra, IDA,
@@ -930,9 +948,12 @@ provider evidence.
 Vitest projects use up to two workers, bounded by host parallelism.
 `process-boundary` runs later with serial files because process-tree sampling
 shares host resources. Acceptance and process-global cases use isolated forks
-without serial scheduling. Pure domain/service and MCP boundary projects share
-immutable module graphs; each MCP session still owns its resources. Other
-projects retain per-file isolation. See `vitest.config.ts` for current settings.
+without serial scheduling. Pure domain/service, composition, conformance,
+evaluation, and MCP boundary projects share module graphs; their tests avoid
+process-global state and keep resource cleanup test-scoped. Each MCP session
+still owns its resources. Adapter, non-MCP boundary, acceptance, and
+process-global projects retain per-file isolation. See `vitest.config.ts` for
+current settings.
 
 Build/documentation writers hold checkout-local output locks. Tests do not
 hold a broad command lock; `check:pr` finishes tests before document validation.
