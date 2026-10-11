@@ -82,7 +82,7 @@ Understand how search works in the Notes app, show me the evidence, and build a
 similar feature for my project.
 ```
 
-Replace Notes with your target app and the feature you want to understand.
+Replace [Notes](https://rea.tools/first-investigation/) with your target app and the feature you want to understand.
 
 ### Use the terminal
 

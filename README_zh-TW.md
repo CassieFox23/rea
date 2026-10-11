@@ -76,7 +76,7 @@ npx rea-agents setup
 弄清 Notes 應用的搜尋功能如何工作，展示證據，並為我的專案實現類似功能。
 ```
 
-把 Notes 替換為目標應用，並描述你想瞭解的功能。
+把 [Notes](https://rea.tools/first-investigation/) 替換為目標應用，並描述你想瞭解的功能。
 
 ### 使用終端
 

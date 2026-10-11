@@ -76,7 +76,7 @@ Kurulum Claude Code, Codex, Cursor, Gemini CLI, Grok Build ve [diğer ajanları]
 Notes uygulamasında aramanın nasıl çalıştığını araştır, kanıtları göster ve projem için benzer bir özellik geliştir.
 ```
 
-Notes yerine hedef uygulamanızı ve anlamak istediğiniz özelliği belirtin.
+[Notes](https://rea.tools/first-investigation/) yerine hedef uygulamanızı ve anlamak istediğiniz özelliği belirtin.
 
 ### Terminali kullanın
 
