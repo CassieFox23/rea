@@ -48,6 +48,10 @@ The VitePress site uses the Markdown files in `docs/`. Run `npm run docs:dev`
 for live editing, `npm run docs:build` to check the production build and
 links, and `npm run docs:preview` to preview that build at `/rea/`.
 
+English is the source for the README translations (`README_*.md`). When a
+change to `README.md` alters a fact or a sentence, open a follow-up for the
+translations. `npm run docs:check` compares only link targets, not text.
+
 Site navigation lives in `docs/.vitepress/config.ts`. Keep links to guides
 relative so they work on GitHub and the website; link to repository files
 outside `docs/` using their full GitHub URLs. Generated reference documents
