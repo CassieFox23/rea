@@ -170,7 +170,8 @@ Verification checks route-specific canonicals, unique titles, descriptions,
 sharing fields, image dimensions, indexing policy and complete sitemap coverage.
 `scripts/test-website.py` exercises automatic route changes and rejects incorrect
 canonicals, lost fixture exclusions, stale sitemap entries and missing previews.
-Run it after preparing assets:
+It prepares its own copies of the generated files, so it also runs alone with
+`python3 scripts/test-website.py`. The full check runs it with the others:
 
 ```sh
 python3 scripts/website.py check
