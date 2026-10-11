@@ -57,8 +57,8 @@ a function dossier; `decompile` returns pseudocode. For assembly instructions
 alone, use `rea instructions`. A macOS `.app` bundle can be supplied directly.
 
 Run `rea --help` or a command's `--help` for arguments and output options.
-The [generated catalog](product-catalog.json) lists all CLI commands and MCP
-tools. Provider-specific target support is described in the
+The [generated catalog](mcp-contracts.md#generated-catalog) lists all CLI
+commands and MCP tools. Provider-specific target support is described in the
 [native guide](native-investigation.md), [DOS guide](ghidra-dos.md), and
 [Windows Ghidra guide](windows-ghidra-p0.md).
 
