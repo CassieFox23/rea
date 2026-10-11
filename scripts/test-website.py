@@ -30,6 +30,14 @@ VERIFY = load_script("verify-website")
 WEBSITE = load_script("website")
 
 
+def prepare_assets(site):
+    """Generate the ignored files a copied site needs, as `website.py check` does."""
+    with contextlib.redirect_stdout(io.StringIO()):
+        PREPARE.prepare_sharing_image(site)
+        PREPARE.prepare_sitemap(site)
+        PREPARE.prepare_notes_example(site)
+
+
 class WebsiteSearchChecks(unittest.TestCase):
     """Use authored pages and temporary fixtures to check the publishing boundary."""
 
@@ -114,6 +122,7 @@ class WebsiteSearchChecks(unittest.TestCase):
             with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
                 site = Path(directory) / "public"
                 shutil.copytree(ROOT / "website/public", site)
+                prepare_assets(site)
                 path = site / name
                 source = path.read_text()
                 self.assertIn(old, source)
@@ -124,6 +133,7 @@ class WebsiteSearchChecks(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             site = Path(directory) / "public"
             shutil.copytree(ROOT / "website/public", site)
+            prepare_assets(site)
             (site / "assets/social-card.png").unlink()
             self.assertIn(
                 "Social preview PNG is missing; run scripts/prepare-website.py",
@@ -162,6 +172,7 @@ class WebsiteMaintenanceChecks(unittest.TestCase):
             for name in ("public", "templates"):
                 shutil.copytree(ROOT / "website" / name, root / "website" / name)
             site = root / "website/public"
+            prepare_assets(site)
             page = WEBSITE.new_page(root, "blog/new-example", 'A <test> & "result"', 'Check "quotes" & <markup>.')
             source = page.read_text()
             self.assertIn('href="../../blog/" aria-current="page"', source)
