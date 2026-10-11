@@ -1,0 +1,4246 @@
+<!doctype html>
+<!-- Offline preview of / from the REA website; links point to https://rea.tools/ -->
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>REA — Reverse Engineering for Your Coding Agent</title>
+    <meta
+      name="description"
+      content="Reverse engineer apps, binaries and browser behavior with your coding agent. Follow clear guides and try interactive examples with REA."
+    />
+    <!-- website:sharing:start -->
+    <!-- prettier-ignore -->
+    <link rel="canonical" href="https://rea.tools/" />
+    <!-- prettier-ignore -->
+    <meta property="og:type" content="website" />
+    <!-- prettier-ignore -->
+    <meta property="og:site_name" content="REA" />
+    <!-- prettier-ignore -->
+    <meta property="og:title" content="REA — Reverse Engineering for Your Coding Agent" />
+    <!-- prettier-ignore -->
+    <meta property="og:description" content="Reverse engineer apps, binaries and browser behavior with your coding agent. Follow clear guides and try interactive examples with REA." />
+    <!-- prettier-ignore -->
+    <meta property="og:url" content="https://rea.tools/" />
+    <!-- prettier-ignore -->
+    <meta property="og:image" content="https://rea.tools/assets/social-card.png" />
+    <!-- prettier-ignore -->
+    <meta property="og:image:type" content="image/png" />
+    <!-- prettier-ignore -->
+    <meta property="og:image:width" content="1200" />
+    <!-- prettier-ignore -->
+    <meta property="og:image:height" content="630" />
+    <!-- prettier-ignore -->
+    <meta
+      property="og:image:alt"
+      content="REA — Find out how software works. Reverse engineering with your coding agent."
+    />
+    <!-- prettier-ignore -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- prettier-ignore -->
+    <meta name="twitter:title" content="REA — Reverse Engineering for Your Coding Agent" />
+    <!-- prettier-ignore -->
+    <meta name="twitter:description" content="Reverse engineer apps, binaries and browser behavior with your coding agent. Follow clear guides and try interactive examples with REA." />
+    <!-- prettier-ignore -->
+    <meta name="twitter:image" content="https://rea.tools/assets/social-card.png" />
+    <!-- prettier-ignore -->
+    <meta
+      name="twitter:image:alt"
+      content="REA — Find out how software works. Reverse engineering with your coding agent."
+    />
+    <!-- website:sharing:end -->
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#1e1e2e"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNSIgZmlsbD0iIzIwMjUyYiIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik05IDdoNy41YzUgMCA3LjUgMi4zIDcuNSA2LjIgMCAyLjgtMS40IDQuNy00IDUuNkwyNSAyNWgtNWwtNC41LTUuOEgxM1YyNUg5em00IDMuNXY1LjJoMy41YzIuMyAwIDMuNS0uOCAzLjUtMi42cy0xLjItMi42LTMuNS0yLjZ6Ii8+PC9zdmc+Cg==" type="image/svg+xml" />
+    <style>
+:root {
+  color-scheme: light;
+  --ink: #20252b;
+  --muted: #5b6570;
+  --line: #e0e5e9;
+  --soft: #f4f6f8;
+  --accent: #294f82;
+  --page: #ffffff;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  line-height: 1.65;
+}
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+::selection {
+  background: #dce8f6;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+code,
+pre {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+code {
+  font-size: max(0.9em, 0.75rem);
+  overflow-wrap: anywhere;
+}
+p {
+  margin: 0 0 1.2rem;
+}
+th,
+td {
+  overflow-wrap: anywhere;
+}
+h1,
+h2,
+h3 {
+  overflow-wrap: break-word;
+  line-height: 1.14;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+h1 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.75rem, 6.5vw, 5.4rem);
+}
+h2 {
+  margin: 0 0 1.2rem;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+}
+h3 {
+  margin: 0 0 0.65rem;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+ul,
+ol {
+  padding-left: 1.3rem;
+}
+li + li {
+  margin-top: 0.45rem;
+}
+section[id] {
+  scroll-margin-top: 2rem;
+}
+.container {
+  width: min(1080px, calc(100% - 3.5rem));
+  margin-inline: auto;
+}
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -5rem;
+  padding: 0.6rem 1rem;
+  background: var(--ink);
+  color: white;
+  z-index: 10;
+}
+.skip-link:focus {
+  top: 0.75rem;
+}
+.back-to-top {
+  position: fixed;
+  right: calc(1.5rem + env(safe-area-inset-right, 0px));
+  bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--page);
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.back-to-top[hidden] {
+  display: none;
+}
+.back-to-top:hover {
+  background: var(--soft);
+  color: var(--ink);
+}
+.site-header {
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  min-height: 88px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2rem;
+}
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brand-name {
+  font-size: 1.45rem;
+  font-weight: 750;
+  letter-spacing: -0.065em;
+}
+.brand-caption {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.8rem;
+  font-size: 0.9rem;
+}
+.navigation a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.navigation a:hover,
+.navigation a[aria-current="page"],
+.navigation a[aria-current="true"] {
+  color: var(--ink);
+}
+.navigation a[aria-current="page"],
+.navigation a[aria-current="true"] {
+  text-decoration: underline;
+}
+.navigation .nav-start {
+  color: var(--ink);
+}
+.header-social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-github,
+.nav-discord,
+.nav-x {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  padding-inline: 10px;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.nav-github:hover,
+.nav-discord:hover,
+.nav-x:hover {
+  background: var(--soft);
+  color: var(--ink);
+}
+.nav-github svg,
+.nav-discord svg,
+.nav-x svg {
+  display: block;
+  flex-shrink: 0;
+}
+.nav-github-count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.faq-list {
+  border-top: 1px solid var(--line);
+}
+.faq-item {
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 2rem;
+}
+.faq-item summary {
+  cursor: pointer;
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.55;
+}
+.faq-item[open] summary {
+  margin-bottom: 0.9rem;
+}
+.faq-item > :last-child {
+  margin-bottom: 0;
+}
+.eyebrow {
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.hero {
+  padding-block: 5.8rem 4.6rem;
+}
+.hero h1 {
+  max-width: 900px;
+}
+.hero .lede {
+  max-width: 710px;
+}
+.lede {
+  font-size: 1.2rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.6rem;
+  margin-top: 2rem;
+}
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid var(--ink);
+  border-radius: 5px;
+  background: var(--ink);
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.button:hover {
+  background: #38424e;
+  text-decoration: none;
+}
+.button.secondary {
+  border-color: var(--line);
+  background: var(--page);
+  color: var(--ink);
+}
+.button.secondary:hover {
+  background: var(--soft);
+}
+.text-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.hero-command {
+  max-width: 680px;
+  margin-top: 2.25rem;
+}
+.home-hero {
+  padding-block: 4rem 3.5rem;
+}
+.home-definition {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: baseline;
+  margin-bottom: 2rem;
+}
+.home-definition h2,
+.home-definition p {
+  margin: 0;
+}
+.home-calculation {
+  margin: 0;
+}
+.home-code-comparison pre {
+  font-size: 0.85rem;
+  line-height: 1.9;
+}
+.code-key {
+  color: var(--accent);
+  background: #e4ecf5;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.pan-examples {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem;
+  margin-top: 1.8rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.pan-example {
+  min-width: 0;
+  text-align: center;
+}
+.pan-label,
+.pan-value,
+.pan-meaning {
+  display: block;
+}
+.pan-label {
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.pan-position {
+  position: relative;
+  height: 2rem;
+  margin-block: 0.6rem;
+}
+.pan-position::before {
+  content: "";
+  position: absolute;
+  top: calc(50% - 1px);
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--line);
+}
+.pan-position i {
+  position: absolute;
+  top: calc(50% - 5px);
+  left: calc(5px + (100% - 10px) * var(--position));
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--accent);
+}
+.pan-value {
+  font-size: 0.9rem;
+}
+.pan-meaning {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.home-calculation figcaption {
+  margin-top: 0.8rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.home-analysis-work {
+  max-width: 760px;
+  margin: 1.5rem 0 0;
+  color: var(--muted);
+}
+.home-agent-grid,
+.home-try-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr);
+  gap: 3.5rem;
+  align-items: start;
+}
+.home-reassurance h2 {
+  font-size: clamp(1.75rem, 3vw, 2.2rem);
+}
+.home-no {
+  margin: 1.2rem 0;
+  font-size: clamp(4.5rem, 8vw, 6.5rem);
+  font-weight: 650;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+.home-reassurance > :last-child,
+.home-try-grid p {
+  color: var(--muted);
+}
+.agent-terminal.home-analysis-terminal {
+  margin-block: 1rem;
+}
+.terminal-target {
+  margin: 1rem 1.4rem 0;
+  color: #bdc8d4;
+  font-size: 0.75rem;
+}
+.agent-reply {
+  padding: 1.4rem;
+  background: var(--page);
+  color: var(--ink);
+}
+.agent-reply .reply-label {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.agent-reply > :last-child {
+  margin-bottom: 0;
+}
+.home-evidence {
+  margin-block: 2rem 1.2rem;
+}
+.home-check {
+  max-width: 800px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.home-try-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+}
+.home-setup .agent-terminal {
+  margin-block: 1rem;
+}
+.home-setup .code-inline {
+  margin-block: 1rem;
+}
+.home-setup > .caption {
+  margin-bottom: 0;
+}
+.code-block {
+  margin-block: 1.3rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--soft);
+}
+.code-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  overflow-wrap: anywhere;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.copy-button {
+  padding: 0.15rem 0.45rem;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+.copy-button:hover {
+  background: #e5e9ee;
+  color: var(--ink);
+}
+pre {
+  margin: 0;
+  padding: 1.15rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+pre code {
+  font-size: inherit;
+  overflow-wrap: normal;
+}
+.code-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1.1rem;
+}
+.code-inline code {
+  min-width: 0;
+  font-size: 0.875rem;
+}
+.section {
+  padding-block: 3.8rem;
+  border-top: 1px solid var(--line);
+}
+.section-heading {
+  max-width: 650px;
+  margin-bottom: 2rem;
+}
+.section-heading p {
+  color: var(--muted);
+}
+.feature-case {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 4.5rem;
+  align-items: start;
+}
+.feature-case p {
+  max-width: 630px;
+  color: var(--muted);
+}
+.case-note {
+  font-size: 0.875rem;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.stats dt {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+.stats dd {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.case-stats {
+  grid-template-columns: 1fr;
+  margin: 0;
+  padding-left: 2rem;
+  border-left: 1px solid var(--line);
+}
+.case-stats > div + div {
+  border-top: 1px solid var(--line);
+  padding-top: 1.1rem;
+}
+.case-stats dt {
+  font-size: 1.7rem;
+}
+.workflows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.8rem;
+}
+.workflows p {
+  margin-bottom: 0.8rem;
+  color: var(--muted);
+}
+.workflows a {
+  font-size: 0.9rem;
+}
+.start-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+.start-row h2 {
+  margin-bottom: 0.65rem;
+}
+.start-row p {
+  margin: 0;
+  color: var(--muted);
+}
+.site-footer {
+  margin-top: 1.5rem;
+  padding-block: 2rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+.footer-inner p {
+  margin: 0;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: var(--muted);
+}
+.page-heading {
+  padding-block: 4.3rem 2.7rem;
+}
+.page-heading h1 {
+  max-width: 850px;
+  font-size: clamp(2.6rem, 5.5vw, 4.25rem);
+}
+.page-heading .lede {
+  max-width: 730px;
+}
+.breadcrumb {
+  margin-bottom: 2rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.breadcrumb a {
+  color: var(--muted);
+}
+.page-meta {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.article-layout {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 4rem;
+  padding-bottom: 3.5rem;
+}
+.contents {
+  align-self: start;
+  position: sticky;
+  top: 2rem;
+  padding-top: 2.4rem;
+  font-size: 0.875rem;
+}
+.contents p {
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.8rem;
+}
+.contents ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.contents li + li {
+  margin-top: 0.75rem;
+}
+.contents a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.contents a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+.article {
+  max-width: 760px;
+  min-width: 0;
+}
+.article-section {
+  padding-block: 2.4rem;
+  border-top: 1px solid var(--line);
+}
+.article-section h2 {
+  font-size: 1.8rem;
+}
+.article p,
+.article li {
+  color: #414b55;
+}
+.article .stats {
+  margin: 0 0 1.6rem;
+}
+.article .stats dt {
+  color: var(--ink);
+}
+.article .stats dd {
+  color: var(--muted);
+}
+.blog-takeaway {
+  max-width: 730px;
+  margin-top: 1.8rem;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--accent);
+}
+.blog-takeaway .eyebrow {
+  color: var(--accent);
+}
+.blog-takeaway p:last-child {
+  margin-bottom: 0;
+}
+.blog-takeaway ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+.blog-takeaway li + li {
+  margin-top: 0.75rem;
+}
+.reconstruction-flywheel {
+  max-width: 880px;
+  margin: 0 auto 4rem;
+  padding-block: 1.5rem 1.75rem;
+  border-block: 1px solid var(--line);
+}
+.flywheel-heading {
+  text-align: center;
+}
+.flywheel-heading .eyebrow {
+  margin-bottom: 0.6rem;
+  color: var(--accent);
+}
+.flywheel-heading > p:last-child {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.flywheel-diagram {
+  position: relative;
+  max-width: 760px;
+  height: 440px;
+  margin-inline: auto;
+}
+.flywheel-arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.flywheel-path-mobile {
+  display: none;
+}
+.flywheel-node {
+  position: absolute;
+  width: 30%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+.flywheel-node p {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.flywheel-node .flywheel-kicker {
+  margin: 0 0 0.4rem;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.flywheel-node h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+.flywheel-agent {
+  top: 15%;
+  left: 50%;
+  width: 38%;
+}
+.flywheel-oracle {
+  top: 58%;
+  left: 79%;
+}
+.flywheel-memory {
+  top: 58%;
+  left: 21%;
+}
+.flywheel-retry,
+.flywheel-center,
+.flywheel-reuse,
+.flywheel-pass {
+  position: absolute;
+  margin: 0;
+  padding: 0.25rem;
+  background: var(--page);
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+.flywheel-retry {
+  top: 36%;
+  left: 68%;
+  width: 23%;
+}
+.flywheel-center {
+  top: 57%;
+  left: 50%;
+  width: 20%;
+  color: var(--accent);
+  font-size: 0.9375rem;
+}
+.flywheel-reuse {
+  top: 33%;
+  left: 23%;
+  color: var(--accent);
+}
+.flywheel-pass {
+  top: 94%;
+  left: 50%;
+  width: 75%;
+  color: var(--accent);
+  font-size: 0.8125rem;
+}
+.flywheel-projects {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 0.3rem;
+}
+.flywheel-projects a {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.flywheel-projects span {
+  color: var(--muted);
+}
+.reconstruction-flywheel figcaption {
+  margin: 1rem auto 0;
+  max-width: 600px;
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .reconstruction-flywheel {
+    margin-bottom: 2.75rem;
+  }
+  .flywheel-diagram {
+    height: 405px;
+  }
+  .flywheel-agent {
+    width: 52%;
+  }
+  .flywheel-path-desktop {
+    display: none;
+  }
+  .flywheel-path-mobile {
+    display: initial;
+  }
+  .flywheel-node h3 {
+    font-size: 1.125rem;
+  }
+  .flywheel-node p {
+    font-size: 0.75rem;
+  }
+  .flywheel-node .flywheel-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .flywheel-center {
+    font-size: 0.75rem;
+  }
+  .flywheel-retry {
+    font-size: 0.75rem;
+  }
+  .flywheel-projects {
+    gap: 1rem;
+  }
+}
+.blog-article blockquote {
+  margin: 1.6rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--line);
+  font-size: 1.05rem;
+}
+.blog-article blockquote p {
+  color: var(--ink);
+}
+.caption {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.explanatory-figure {
+  margin: 0;
+}
+.figure-viewport {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.explanatory-figure img {
+  display: block;
+  width: 100%;
+  min-width: 880px;
+  height: auto;
+}
+.explanatory-figure figcaption {
+  max-width: 800px;
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.explanatory-figure figcaption a {
+  white-space: nowrap;
+}
+.case-figure {
+  margin-bottom: 3.2rem;
+}
+.aegis-step-selector {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.aegis-step-selector button {
+  min-height: 44px;
+}
+.aegis-calculation .flow-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 3.5rem;
+  font-variant-numeric: tabular-nums;
+}
+.aegis-calculation .aegis-code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+}
+.aegis-clock-controls {
+  margin-top: 1.7rem;
+}
+.aegis-clock-controls label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.aegis-clock-controls input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+.aegis-clock-scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+.aegis-clock-controls .actions {
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+}
+.aegis-clock-controls .caption {
+  margin-bottom: 0;
+}
+.aegis-demo .button:disabled,
+[data-aegis-check]:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.step-selector {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-block: 1.5rem 0.9rem;
+}
+.step-selector button {
+  padding: 0.55rem 0.3rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--page);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.step-selector button span {
+  font-size: 0.75rem;
+  margin-right: 0.3rem;
+  font-variant-numeric: tabular-nums;
+}
+.step-selector button[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: #edf2f8;
+  color: var(--accent);
+}
+.code-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+.code-comparison .code-block {
+  margin: 0;
+  min-width: 0;
+}
+.code-comparison .code-header {
+  padding-inline: 0.8rem;
+  font-size: 0.8rem;
+}
+.code-comparison pre {
+  padding: 1rem 0.8rem;
+  font-size: 0.75rem;
+  line-height: 1.95;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.step-comparison .is-active {
+  background: #dce8f6;
+  color: #173a67;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.step-comparison pre .is-active {
+  display: inline-block;
+  width: 100%;
+  border-radius: 4px;
+}
+.step-detail {
+  margin-block: 1.1rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+}
+.step-detail p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+.evidence-details {
+  margin-block: 1.5rem;
+}
+.evidence-details summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+.evidence-details[open] summary {
+  margin-bottom: 1.2rem;
+}
+.evidence-details h3 {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+}
+.evidence-table-wrap {
+  overflow-x: auto;
+  margin-block: 1rem;
+}
+.evidence-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.evidence-table caption {
+  text-align: left;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+.evidence-table th,
+.evidence-table td {
+  text-align: left;
+  padding: 0.6rem 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+.rea-queries {
+  margin-block: 1.5rem 1.8rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: query;
+}
+.rea-queries li {
+  position: relative;
+  padding: 1.2rem 0 1.2rem 2.4rem;
+  border-top: 1px solid var(--line);
+  counter-increment: query;
+}
+.rea-queries li + li {
+  margin-top: 0;
+}
+.rea-queries li::before {
+  content: counter(query, decimal-leading-zero);
+  position: absolute;
+  top: 1.2rem;
+  left: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.rea-queries h4 {
+  margin: 0 0 0.6rem;
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.rea-queries .query-call {
+  margin-bottom: 0.8rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.rea-query-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-block: 0.9rem;
+}
+.rea-query-pair .code-block {
+  margin: 0;
+  min-width: 0;
+}
+.rea-query-pair .code-header {
+  padding-inline: 0.8rem;
+  font-size: 0.75rem;
+}
+.rea-query-pair pre {
+  padding: 0.8rem;
+  font-size: 0.75rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.rea-queries p:last-child {
+  margin: 0;
+  font-size: 0.9rem;
+}
+.numbered-notes {
+  list-style: none;
+  padding: 0;
+  margin: 1.75rem 0 0;
+  counter-reset: note;
+}
+.numbered-notes li {
+  position: relative;
+  padding-left: 2.4rem;
+  counter-increment: note;
+}
+.numbered-notes li + li {
+  margin-top: 1.7rem;
+}
+.numbered-notes li::before {
+  content: counter(note, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+.numbered-notes h3 {
+  color: var(--ink);
+}
+.verification {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.7rem;
+}
+.verification h3 {
+  font-size: 1.1rem;
+}
+.verification p {
+  margin: 0;
+}
+.reading-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+.reading-list li {
+  padding-block: 1rem;
+  border-top: 1px solid var(--line);
+}
+.reading-list span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin-top: 0.2rem;
+}
+.requirements {
+  margin-top: 1.5rem;
+  padding-bottom: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.prompt {
+  margin: 1.2rem 0;
+  padding: 1rem 1.2rem;
+  background: var(--soft);
+  border-left: 2px solid #97a6b7;
+}
+.prompt p {
+  margin: 0;
+}
+.provider-list {
+  margin-top: 1.5rem;
+}
+.provider {
+  display: grid;
+  grid-template-columns: 105px minmax(0, 1fr);
+  gap: 1.3rem;
+  padding-block: 1.2rem;
+  border-top: 1px solid var(--line);
+}
+.provider h3 {
+  font-size: 1rem;
+  margin-top: 0.2rem;
+}
+.provider p {
+  margin-bottom: 0.5rem;
+}
+.provider a {
+  font-size: 0.9rem;
+}
+.small-heading {
+  margin-top: 1.8rem;
+}
+.agent-terminal {
+  margin-block: 1.5rem;
+  overflow: hidden;
+  border: 1px solid #303d4a;
+  border-radius: 5px;
+  background: #202933;
+  color: #f1f4f8;
+}
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid #384551;
+  color: #bdc8d4;
+  font-size: 0.8rem;
+}
+.terminal-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.terminal-dots {
+  display: flex;
+  gap: 4px;
+}
+.terminal-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #81909e;
+}
+.agent-terminal .copy-button {
+  color: #d6dee7;
+}
+.agent-terminal .copy-button:hover {
+  background: #384551;
+  color: white;
+}
+.agent-terminal .terminal-prompt {
+  margin: 0;
+  overflow-wrap: anywhere;
+  padding: 1.4rem;
+  color: #f1f4f8;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.9rem;
+  line-height: 1.9;
+}
+.prompt-symbol {
+  color: #9bbfe5;
+  margin-right: 0.65rem;
+}
+.terminal-cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 0.4em;
+  vertical-align: -0.12em;
+  background: #9bbfe5;
+  animation: terminal-blink 1s step-end infinite;
+}
+@keyframes terminal-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.workflow-figure {
+  margin: 1.7rem 0;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 1.4rem;
+  background: #fafbfc;
+}
+.figure-title {
+  margin: 0 0 1.3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.9rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.flow-steps li {
+  position: relative;
+  margin: 0;
+  min-width: 0;
+}
+.flow-steps li:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -1.4rem;
+  top: 2.1rem;
+  color: #8191a2;
+}
+.flow-label {
+  display: block;
+  margin-bottom: 0.65rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.flow-node {
+  display: block;
+  padding: 0.8rem;
+  background: white;
+  border: 1px solid #ced9e5;
+  border-radius: 4px;
+  color: var(--accent);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.flow-note {
+  display: block;
+  margin-top: 0.65rem;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.flow-result {
+  margin: 1.3rem 0 0;
+  padding: 0.9rem 1rem;
+  border-left: 2px solid var(--accent);
+  background: #edf2f8;
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+.notion-bridge-flow {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.th04-flow {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.th04-overview {
+  margin-bottom: 3.2rem;
+}
+.th04-ring-figure img,
+.ctf-mask-figure img {
+  min-width: 680px;
+}
+.th04-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.notion-channel {
+  color: var(--accent);
+  background: #edf2f8;
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.notion-clipboard-grid,
+.notion-table-example {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.notion-clipboard-grid .code-block,
+.notion-table-example .code-block {
+  min-width: 0;
+  margin: 0;
+}
+.notion-clipboard-grid pre,
+.notion-table-example pre {
+  padding: 1rem;
+  font-size: 0.75rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.notion-mini-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.8rem;
+  margin: 1.3rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+}
+.notion-mini-flow li {
+  position: relative;
+  margin: 0;
+}
+.notion-mini-flow li:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -1.3rem;
+  color: #8191a2;
+}
+.case-preview {
+  margin: 0;
+}
+.case-preview pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.8rem;
+}
+.workflow-figure figcaption {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.guide-index {
+  padding-bottom: 3rem;
+}
+.guide-entry {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 2.5rem;
+  padding-block: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+.guide-entry .eyebrow {
+  margin: 0;
+}
+.guide-entry h2 {
+  font-size: 1.75rem;
+}
+.guide-entry p {
+  max-width: 660px;
+  color: var(--muted);
+}
+.guide-route {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.guide-route span {
+  padding: 0.2rem 0.55rem;
+  background: var(--soft);
+  border-radius: 3px;
+  color: #414b55;
+}
+.example-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.25rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+.example-files li + li {
+  margin: 0;
+}
+.example-app {
+  max-width: 720px;
+  padding-block: 3.5rem;
+}
+.example-app h1 {
+  font-size: 3rem;
+}
+.example-notes {
+  padding: 0;
+  list-style: none;
+  margin-block: 2rem;
+}
+.example-notes li {
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--line);
+}
+.example-status {
+  margin-block: 1.5rem 1rem;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.home-page-nav {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  background: var(--page);
+  border-bottom: 1px solid var(--line);
+}
+.home-page-nav > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 52px;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+.home-page-nav > summary::-webkit-details-marker {
+  display: none;
+}
+.home-nav-current {
+  margin-left: auto;
+  color: var(--muted);
+  font-weight: 400;
+}
+.home-page-nav[open] > summary svg {
+  transform: rotate(180deg);
+}
+.home-nav-links {
+  position: absolute;
+  inset: 100% 0 auto;
+  max-height: calc(100svh - 5rem);
+  overflow-y: auto;
+  padding-block: 0.4rem 1rem;
+  background: var(--page);
+  border-bottom: 1px solid var(--line);
+}
+.home-nav-title {
+  display: none;
+}
+.home-nav-links ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.2rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.home-nav-links li + li {
+  margin: 0;
+}
+.home-nav-links a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0.65rem;
+  border-left: 2px solid transparent;
+  color: var(--muted);
+  font-size: 0.825rem;
+  line-height: 1.5;
+  text-decoration: none;
+}
+.home-nav-links a:hover {
+  color: var(--ink);
+  background: var(--soft);
+}
+.home-nav-links a[aria-current="location"] {
+  border-left-color: var(--accent);
+  background: #f1f5fa;
+  color: var(--accent);
+  font-weight: 600;
+}
+.home-page section[id],
+.home-role-comparison[id] {
+  scroll-margin-top: 5.25rem;
+}
+.home-expert-shortcut {
+  margin-block: 1.5rem 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.home-expert-shortcut a {
+  white-space: nowrap;
+}
+.home-expert-shortcut + .home-expert-shortcut {
+  margin-top: 0.5rem;
+}
+@media (min-width: 1440px) {
+  .home-page-nav {
+    position: fixed;
+    top: 7.5rem;
+    right: max(1.5rem, calc((100vw - 1080px) / 2 - 156px));
+    width: 132px;
+    max-height: calc(100svh - 9rem);
+    overflow-y: auto;
+    border: 0;
+    z-index: 2;
+  }
+  .home-page-nav > summary {
+    display: none;
+  }
+  .home-nav-links {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+    border: 0;
+  }
+  .home-nav-links .container {
+    width: 100%;
+  }
+  .home-nav-title {
+    display: block;
+    margin-bottom: 0.7rem;
+    padding-left: 0.75rem;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .home-nav-links ul {
+    display: block;
+    border-left: 1px solid var(--line);
+  }
+  .home-nav-links a {
+    margin-left: -1px;
+    font-size: 0.78rem;
+  }
+  .home-page section[id],
+  .home-role-comparison[id] {
+    scroll-margin-top: 2rem;
+  }
+}
+
+.home-start-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3.5rem;
+  align-items: baseline;
+}
+.home-start-grid h1 {
+  font-size: clamp(2.8rem, 5vw, 4.2rem);
+}
+.home-start-grid .home-setup h2 {
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.7rem;
+}
+.home-start-grid .home-setup > p {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.home-question {
+  margin-block: 0 1.8rem;
+  color: var(--muted);
+}
+.home-question strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+.home-purpose {
+  max-width: 850px;
+  margin-bottom: 2rem;
+  color: var(--muted);
+}
+.prose-highlight {
+  padding: 0.08em 0.35em;
+  border-radius: 4px;
+  background: #e4ecf5;
+  color: var(--accent);
+  font-weight: 600;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.home-examples-intro {
+  max-width: 760px;
+  margin: 0 0 2.5rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+.home-examples-intro strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.home-project-prompts {
+  margin-block: 2rem 2.5rem;
+}
+.home-project-prompts .agent-terminal {
+  margin: 0;
+}
+.home-project-prompts .caption {
+  margin-block: 0.8rem 0;
+}
+.home-page #analysis-guides {
+  scroll-margin-top: 5rem;
+}
+.case-brief {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 2.5rem;
+  margin: 0 0 2rem;
+  padding-block: 1.2rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.case-brief dt,
+.finding-label {
+  margin-bottom: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.case-brief dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.case-brief dd strong {
+  color: var(--ink);
+}
+.rea-finding {
+  margin-bottom: 1.4rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+}
+.rea-finding > :last-child {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.rea-finding strong {
+  color: var(--ink);
+}
+.home-role-comparison {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: 0 2rem;
+  margin: 0;
+}
+.comparison-question {
+  margin-block: 1.8rem 1.2rem;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+.comparison-question strong {
+  color: var(--ink);
+}
+.comparison-label {
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.agent-investigation > .comparison-label {
+  color: var(--accent);
+}
+.expert-step-selector {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-block: 1.2rem 1rem;
+}
+.expert-step-selector button {
+  min-height: 44px;
+  padding: 0.6rem 0.4rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
+}
+.expert-step-selector button span {
+  font-size: 0.75rem;
+}
+.expert-analysis-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.52fr);
+  align-items: start;
+  gap: 0.9rem;
+}
+.expert-assembly {
+  min-width: 0;
+  margin: 0;
+}
+.expert-assembly .code-header {
+  padding: 0.9rem 1rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  list-style: none;
+}
+.expert-assembly summary::-webkit-details-marker {
+  display: none;
+}
+.expert-assembly summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.assembly-disclosure::after {
+  content: "Show +";
+  color: var(--accent);
+  white-space: nowrap;
+}
+.expert-assembly[open] .assembly-disclosure::after {
+  content: "Hide −";
+}
+.expert-assembly pre {
+  margin: 0;
+  padding: 0.8rem;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+.assembly-omission {
+  color: var(--muted);
+}
+.expert-reasoning {
+  min-width: 0;
+}
+.expert-thought {
+  position: relative;
+  padding: 1rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--page);
+}
+.expert-thought + .expert-thought {
+  margin-top: 1rem;
+}
+.expert-thought::before,
+.expert-thought::after {
+  content: "";
+  position: absolute;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--page);
+}
+.expert-thought::before {
+  bottom: -18px;
+  right: 38px;
+  width: 12px;
+  height: 12px;
+}
+.expert-thought::after {
+  bottom: -30px;
+  right: 47px;
+  width: 6px;
+  height: 6px;
+}
+.expert-thought > p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+.expert-thought > .thought-label {
+  margin-bottom: 0.6rem;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.expert-thought > .expert-task {
+  margin-top: 0.8rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.expert-facts {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0.9rem 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.75rem;
+}
+.expert-facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.expert-facts dt {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+.expert-facts dd {
+  margin: 0;
+  color: var(--accent);
+}
+.expert-rule {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.75rem;
+}
+.expert-rule strong {
+  color: var(--accent);
+  font-size: 1.4rem;
+}
+.expert-illustration {
+  display: block;
+  width: 120px;
+  height: 90px;
+  margin: 2rem 0 0 auto;
+}
+.expert-caption {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-align: right;
+}
+.manual-work-summary {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.manual-work-summary strong {
+  font-weight: 500;
+}
+.agent-one-prompt {
+  margin: 1.2rem 0 0.3rem;
+  color: var(--accent);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+.agent-intro {
+  margin: 0 0 1.2rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.agent-percent-rule {
+  display: grid;
+  justify-items: start;
+  gap: 0.2rem;
+  margin-top: 0.9rem;
+  color: var(--accent);
+}
+.agent-percent-rule code {
+  color: var(--ink);
+}
+.agent-percent-rule > span {
+  margin-left: 0.4rem;
+  color: var(--muted);
+}
+.agent-percent-rule strong {
+  font-size: 1.2rem;
+}
+.agent-evidence-roles {
+  display: grid;
+  gap: 1rem;
+  margin: 1.2rem 0 0;
+}
+.agent-evidence-roles dt {
+  margin-bottom: 0.25rem;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.agent-evidence-roles dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.agent-investigation-note {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.home-role-comparison figcaption {
+  grid-column: 1 / -1;
+  margin-top: 1.2rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.home-example-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: 3rem;
+}
+.percent-figure,
+.dino-demo {
+  min-width: 0;
+  margin: 0;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+.percent-operation,
+.percent-controls,
+.dino-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.percent-operation button,
+.percent-controls button,
+.dino-buttons button {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.5rem 0.8rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--ink);
+  background: var(--page);
+  cursor: pointer;
+}
+.percent-operation button[aria-pressed="true"] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: #edf2f8;
+}
+.percent-display {
+  padding: 1.2rem;
+  margin-block: 1rem;
+  border-radius: 4px;
+  background: var(--soft);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.percent-expression {
+  display: block;
+  min-height: 1.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.percent-display strong {
+  font-size: 3rem;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.percent-controls .percent-key {
+  min-width: 68px;
+  font-size: 1.25rem;
+  color: var(--accent);
+  border-color: #bbcce0;
+}
+.percent-controls button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.percent-controls .percent-reset {
+  margin-left: auto;
+  border-color: transparent;
+  color: var(--muted);
+}
+.percent-status {
+  min-height: 3rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+.percent-figure figcaption,
+.dino-demo figcaption {
+  margin-top: 0.8rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.percent-explanation h3 {
+  font-size: 1.2rem;
+}
+.percent-explanation > p {
+  color: var(--muted);
+}
+.percent-rules {
+  margin-bottom: 0;
+}
+.percent-rules > div {
+  padding-block: 0.55rem;
+}
+.percent-rules dt {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+.percent-rules dd {
+  margin: 0;
+  font-size: 0.9rem;
+}
+.percent-rules dd strong,
+.percent-rules dd code {
+  display: block;
+}
+.percent-rules dd strong {
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+.home-evidence-details {
+  margin-top: 2rem;
+  padding-block: 1rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.home-evidence-details > summary {
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.home-evidence-details[open] > summary {
+  margin-bottom: 1.5rem;
+}
+.calculator-trace {
+  margin-block: 1.5rem;
+}
+.dino-example-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 2.5rem;
+}
+.dino-stage {
+  overflow: hidden;
+  margin-block: 0.8rem;
+  background: var(--soft);
+  border-radius: 4px;
+  color: var(--muted);
+}
+.dino-stage canvas,
+.dino-fallback {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.dino-stage canvas {
+  touch-action: manipulation;
+}
+.dino-buttons .button {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: white;
+}
+.dino-controls {
+  display: grid;
+  gap: 1.2rem;
+}
+.dino-speed-label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+.dino-speed-label output {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+.dino-speed-label input {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0;
+  min-height: 30px;
+  accent-color: var(--accent);
+}
+.dino-auto-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 36px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.dino-auto-label input {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+.dino-status {
+  min-height: 2.6rem;
+  margin: 1rem 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.dino-rule {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.dino-rule strong {
+  color: var(--ink);
+}
+.dino-loop {
+  margin-top: 2rem;
+}
+.dino-lab-demo {
+  margin-block: 2rem;
+}
+.dino-lab-demo .dino-stage {
+  margin-block: 1.5rem;
+}
+.speed-check-table td:last-child,
+.speed-check-table th:last-child {
+  text-align: right;
+}
+[hidden] {
+  display: none !important;
+}
+@media (max-width: 850px) {
+  .home-start-grid,
+  .home-role-comparison,
+  .home-example-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+  .home-start-grid .home-setup {
+    max-width: 620px;
+  }
+  .home-start-grid h1 {
+    font-size: clamp(2.7rem, 9vw, 4.65rem);
+  }
+  .home-role-comparison figcaption {
+    margin-top: 0;
+  }
+}
+@media (max-width: 640px) {
+  .home-start-grid .actions {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: start;
+    gap: 0.9rem 1.4rem;
+  }
+  .home-start-grid .actions .button {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+  .expert-analysis-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .expert-reasoning {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 88px;
+    column-gap: 0.75rem;
+    align-items: end;
+  }
+  .expert-thought::before {
+    right: -18px;
+    bottom: 42px;
+  }
+  .expert-thought::after {
+    right: -30px;
+    bottom: 36px;
+  }
+  .expert-illustration {
+    width: 88px;
+    height: 66px;
+    margin: 0;
+  }
+  .expert-caption {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+  .expert-step-selector button {
+    font-size: 0.75rem;
+  }
+  .expert-step-selector button span {
+    display: block;
+    margin: 0 0 0.2rem;
+  }
+  .case-brief {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.2rem;
+  }
+  .home-hero {
+    padding-block: 2.8rem;
+  }
+  .percent-figure,
+  .dino-demo {
+    padding: 1.1rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .home-agent-grid,
+  .home-try-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .home-reassurance {
+    max-width: 600px;
+  }
+  .brand-caption {
+    display: none;
+  }
+  .feature-case {
+    gap: 2.4rem;
+  }
+  .workflows {
+    gap: 1.8rem;
+  }
+  .article-layout {
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 2rem;
+  }
+  .code-comparison,
+  .rea-query-pair {
+    grid-template-columns: 1fr;
+  }
+  .flow-steps,
+  .notion-bridge-flow,
+  .th04-flow {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .flow-steps li:not(:last-child)::after {
+    content: "↓";
+    top: auto;
+    bottom: -1.7rem;
+    right: auto;
+    left: 0.85rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-definition {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+  .pan-examples {
+    grid-template-columns: 1fr;
+    gap: 1.3rem;
+    padding: 1.2rem;
+  }
+  .pan-example {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    column-gap: 1rem;
+    text-align: left;
+  }
+  .pan-position {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    height: 1.6rem;
+  }
+  .pan-value,
+  .pan-meaning {
+    grid-column: 1 / -1;
+  }
+  .back-to-top {
+    right: calc(1rem + env(safe-area-inset-right, 0px));
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  }
+  .site-footer {
+    padding-bottom: calc(2rem + 44px + env(safe-area-inset-bottom, 0px));
+  }
+  .container {
+    width: calc(100% - 2.5rem);
+  }
+  .header-inner {
+    min-height: 78px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.55rem;
+    padding-block: 0.8rem;
+  }
+  .navigation {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.25rem;
+    font-size: 0.875rem;
+  }
+  .header-social {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .hero {
+    padding-block: 3.5rem 3rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.55rem, 10vw, 3.75rem);
+  }
+  .lede {
+    font-size: 1.075rem;
+  }
+  .actions {
+    gap: 1.2rem;
+  }
+  .section {
+    padding-block: 2.6rem;
+  }
+  .feature-case,
+  .workflows,
+  .verification {
+    grid-template-columns: 1fr;
+  }
+  .case-stats {
+    grid-template-columns: repeat(3, 1fr);
+    border-left: 0;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid var(--line);
+    gap: 1rem;
+  }
+  .case-stats > div + div {
+    border: 0;
+    padding-top: 0;
+  }
+  .stats dt {
+    font-size: 1.65rem;
+  }
+  .stats dd {
+    font-size: 0.875rem;
+  }
+  .start-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .page-heading {
+    padding-block: 3rem 2rem;
+  }
+  .page-heading h1 {
+    font-size: clamp(2.45rem, 9vw, 3.4rem);
+  }
+  .article-layout {
+    display: block;
+  }
+  .contents {
+    position: static;
+    padding-top: 0;
+    padding-bottom: 1.7rem;
+  }
+  .contents p {
+    display: none;
+  }
+  .contents ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.3rem;
+  }
+  .contents li + li {
+    margin: 0;
+  }
+  .article-section {
+    padding-block: 2rem;
+  }
+  .article .stats {
+    gap: 1rem;
+  }
+  .provider {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+  .guide-entry {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+  .workflow-figure {
+    padding: 1rem;
+  }
+  .notion-clipboard-grid,
+  .notion-table-example {
+    grid-template-columns: 1fr;
+  }
+  .notion-mini-flow {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .notion-mini-flow li:not(:last-child)::after {
+    content: "↓";
+    right: auto;
+    left: 0.4rem;
+    bottom: -1.4rem;
+  }
+  .step-selector {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  pre {
+    padding: 1rem;
+  }
+  .code-inline {
+    align-items: flex-start;
+    padding: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-cursor {
+    animation: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --ink: #cdd6f4;
+    --muted: #a6adc8;
+    --line: #45475a;
+    --soft: #181825;
+    --accent: #89b4fa;
+    --page: #1e1e2e;
+  }
+  ::selection {
+    background: #45475a;
+  }
+  .skip-link,
+  .button,
+  .dino-buttons .button {
+    color: var(--page);
+  }
+  .button {
+    border-color: #bac2de;
+    background: #bac2de;
+  }
+  .button:hover {
+    border-color: #a6adc8;
+    background: #a6adc8;
+  }
+  .code-key,
+  .notion-channel,
+  .prose-highlight,
+  .step-selector button[aria-pressed="true"],
+  .percent-operation button[aria-pressed="true"],
+  .flow-result,
+  .home-nav-links a[aria-current="location"] {
+    background: #313244;
+  }
+  .copy-button:hover {
+    background: #313244;
+  }
+  .step-comparison .is-active {
+    background: #313244;
+    color: #b4befe;
+  }
+  .article p,
+  .article li,
+  .guide-route span {
+    color: #bac2de;
+  }
+  .prompt {
+    border-left-color: #585b70;
+  }
+  .agent-terminal {
+    border-color: var(--line);
+    background: #181825;
+  }
+  .terminal-header {
+    border-bottom-color: #313244;
+  }
+  .agent-terminal .copy-button:hover {
+    background: #313244;
+  }
+  .agent-one-prompt {
+    color: var(--ink);
+  }
+  .workflow-figure {
+    background: var(--soft);
+  }
+  .flow-node {
+    background: #313244;
+    border-color: #585b70;
+  }
+  .flow-steps li:not(:last-child)::after,
+  .notion-mini-flow li:not(:last-child)::after {
+    color: #9399b2;
+  }
+  .percent-controls .percent-key {
+    border-color: #585b70;
+  }
+}
+
+@media (max-width: 360px) {
+  .stats,
+  .case-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+    </script>
+    </script>
+    </script>
+  </head>
+  <body class="home-page" id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <!-- website:header:start -->
+    <!-- prettier-ignore -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="https://rea.tools/" aria-label="REA home"
+          ><span class="brand-name">REA</span
+          ><span class="brand-caption">Reverse Engineer Anything</span></a
+        >
+        <nav class="navigation" aria-label="Main navigation">
+          <a href="https://rea.tools/showcase/">Showcases</a>
+          <a href="https://rea.tools/blog/">Blog</a>
+          <a href="https://rea.tools/get-started/" class="nav-start">Get started</a>
+          <a href="https://rea.tools/guides/">Guides</a>
+          <a href="https://rea.tools/faq/">FAQ</a>
+        </nav>
+        <div class="header-social">
+          <a
+            class="nav-github"
+            href="https://github.com/morluto/rea"
+            aria-label="REA on GitHub"
+            title="REA on GitHub"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 16 16"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill="currentColor"
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
+              />
+            </svg>
+            <span class="nav-github-count" hidden aria-hidden="true"></span>
+          </a>
+          <a
+            class="nav-discord"
+            href="https://discord.gg/GkcryMnJDM"
+            aria-label="Join REA on Discord"
+            title="Join REA on Discord"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill="currentColor"
+                d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 0 0 .0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 0 0 .0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 0 1-.0066.1276 12.2986 12.2986 0 0 1-1.873.8914.0766.0766 0 0 0-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 0 0 .0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 0 0-.0312-.0286ZM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189Zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"
+              />
+            </svg>
+          </a>
+          <a
+            class="nav-x"
+            href="https://x.com/reatools"
+            aria-label="Follow REA on X"
+            title="Follow REA on X"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill="currentColor"
+                d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+    <!-- website:header:end -->
+    <details class="home-page-nav" data-home-nav open>
+      <summary class="container">
+        <span>On this page</span>
+        <span class="home-nav-current" data-home-nav-current aria-hidden="true"
+          >Set up REA</span
+        >
+        <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+          <path d="m2 4 4 4 4-4" fill="none" stroke="currentColor" />
+        </svg>
+      </summary>
+      <nav class="home-nav-links" aria-label="On this page">
+        <div class="container">
+          <p class="home-nav-title">On this page</p>
+          <ul>
+            <li><a href="#setup" aria-current="location">Set up REA</a></li>
+            <li><a href="#what-is-re">What is RE?</a></li>
+            <li><a href="#how-rea-helps">How REA helps</a></li>
+            <li><a href="#dinosaur">Dinosaur game</a></li>
+            <li><a href="#calculator">Calculator</a></li>
+            <li><a href="#try-rea">Try REA</a></li>
+            <li><a href="#analyze">Go deeper</a></li>
+            <li><a href="#questions">Help &amp; feedback</a></li>
+            <li><a href="#community">Community</a></li>
+          </ul>
+        </div>
+      </nav>
+    </details>
+    <main id="main">
+      <section class="container hero home-hero" id="setup">
+        <div class="home-start-grid">
+          <div>
+            <p class="eyebrow">Reverse engineering, with your coding agent</p>
+            <h1>Find out how<br />software works.</h1>
+            <p class="lede">
+              REA gives your agent the tools to inspect a program and explain
+              what it does.
+            </p>
+            <div class="actions">
+              <a class="button" href="#what-is-re">See how REA works ↓</a>
+              <a class="text-link" href="https://rea.tools/get-started/">Setup guide</a>
+              <a class="text-link" href="https://rea.tools/showcase/">Showcases →</a>
+            </div>
+            <p class="home-expert-shortcut">
+              Already know RE?
+              <a href="#analysis-guides">Skip to analysis guides →</a>
+            </p>
+            <p class="home-expert-shortcut">
+              Want to go deeper?
+              <a href="https://rea.tools/blog/">Read the Blog →</a>
+            </p>
+          </div>
+          <div class="home-setup">
+            <h2>Set up REA</h2>
+            <p>Copy this into your coding agent:</p>
+            <div class="agent-terminal">
+              <div class="terminal-header">
+                <span class="terminal-title"
+                  ><span class="terminal-dots" aria-hidden="true"
+                    ><i></i><i></i><i></i></span
+                  >Your coding agent</span
+                >
+                <button
+                  class="copy-button"
+                  type="button"
+                  data-copy="home-install-prompt"
+                  aria-label="Copy REA installation prompt"
+                >
+                  Copy
+                </button>
+              </div>
+              <p class="terminal-prompt">
+                <span class="prompt-symbol" aria-hidden="true">›</span
+                ><span id="home-install-prompt"
+                  >Install REA and connect it to this coding agent using npx
+                  rea-agents@latest setup. Show me the setup plan for approval,
+                  then verify the installation.</span
+                ><span class="terminal-cursor" aria-hidden="true"></span>
+              </p>
+            </div>
+            <p class="caption">Or run this in your terminal:</p>
+            <div class="code-block code-inline">
+              <code id="setup-command">npx rea-agents@latest setup</code>
+              <button
+                class="copy-button"
+                type="button"
+                data-copy="setup-command"
+                aria-label="Copy setup command"
+              >
+                Copy
+              </button>
+            </div>
+            <p class="caption">
+              Approve the setup plan, then restart your agent.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="what-is-re">
+        <div class="container">
+          <div class="home-definition">
+            <h2>What is reverse engineering?</h2>
+            <p class="lede">
+              Finding out how software works by
+              <strong>examining the program itself.</strong>
+            </p>
+          </div>
+          <p class="home-purpose">
+            The goal: understand a feature well enough to
+            <mark class="prose-highlight">explain it</mark>,
+            <mark class="prose-highlight">change it</mark> or
+            <mark class="prose-highlight">rebuild it.</mark>
+          </p>
+          <p class="comparison-question">
+            One question:
+            <strong>why does Calculator give 220 for 200 + 10%?</strong>
+          </p>
+          <figure class="home-role-comparison" id="how-rea-helps">
+            <div
+              class="manual-investigation step-comparison"
+              data-step-comparison
+            >
+              <p class="comparison-label">
+                Before REA · You investigate it
+                <strong class="prose-highlight">yourself</strong>
+              </p>
+              <div
+                class="step-selector expert-step-selector"
+                role="group"
+                aria-label="Follow the manual Calculator analysis"
+              >
+                <button
+                  type="button"
+                  data-select-step="1"
+                  aria-pressed="true"
+                  aria-controls="expert-assembly expert-reasoning"
+                >
+                  <span>01</span> Decode branches
+                </button>
+                <button
+                  type="button"
+                  data-select-step="2"
+                  aria-pressed="false"
+                  aria-controls="expert-assembly expert-reasoning"
+                >
+                  <span>02</span> Trace calls
+                </button>
+                <button
+                  type="button"
+                  data-select-step="3"
+                  aria-pressed="false"
+                  aria-controls="expert-assembly expert-reasoning"
+                >
+                  <span>03</span> Recover the rule
+                </button>
+              </div>
+              <div class="expert-analysis-grid">
+                <details
+                  class="code-block expert-assembly"
+                  data-expert-assembly
+                  open
+                >
+                  <summary class="code-header">
+                    <span>Original x64 · selected instructions</span>
+                    <span class="assembly-disclosure" aria-hidden="true"></span>
+                  </summary>
+                  <pre><code id="expert-assembly"><span class="code-step is-active" data-step="1">0x180124945: MOV EAX, dword ptr [R13 + 0x18]
+0x180124949: CMP EAX, 0x5c
+0x18012494c: JZ 0x180124aba
+0x180124952: CMP EAX, 0x5b
+0x180124955: JZ 0x180124aba</span>
+<span class="code-step" data-step="2">0x18012495b: MOV EDX, 0x64
+0x180124960: LEA RCX, [RSP + 0x160]
+0x180124968: CALL 0x180122650
+0x18012496e: LEA RDX, [R13 + 0x160]
+0x180124975: LEA RCX, [RSP + 0x78]
+0x18012497a: CALL 0x180109720</span>
+0x18012497f: MOV RSI, RAX
+0x180124982: MOV qword ptr [RSP + 0x28], RAX
+<span class="code-step" data-step="2">0x180124987: LEA RDX, [RSP + 0x160]
+0x18012498f: MOV RCX, RAX
+0x180124992: CALL 0x180123190</span>
+<span class="assembly-omission">; … value-copy instructions omitted …</span>
+<span class="code-step" data-step="3">0x180124a14: MOV RDX, RDI
+0x180124a17: LEA RCX, [RSP + 0xf8]
+0x180124a1f: CALL 0x180109720
+0x180124a24: LEA R8, [RSP + 0x30]
+0x180124a29: MOV RDX, RAX
+0x180124a2c: LEA RCX, [RSP + 0xb8]
+0x180124a34: CALL 0x180123c10</span></code></pre>
+                </details>
+                <aside
+                  class="expert-reasoning"
+                  aria-label="Illustrative expert reasoning"
+                >
+                  <div
+                    id="expert-reasoning"
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >
+                    <div class="expert-thought" data-step-note="1">
+                      <p class="thought-label">01 · Which branch?</p>
+                      <p>
+                        “<strong>0x5b? 0x5c?</strong> Two jumps to the same
+                        place. Which operators are these?”
+                      </p>
+                      <p class="expert-task">
+                        Look up the command IDs, then label the branch.
+                      </p>
+                      <dl class="expert-facts">
+                        <div>
+                          <dt>0x5b</dt>
+                          <dd>Divide ÷</dd>
+                        </div>
+                        <div>
+                          <dt>0x5c</dt>
+                          <dd>Multiply ×</dd>
+                        </div>
+                      </dl>
+                    </div>
+                    <div class="expert-thought" data-step-note="2">
+                      <p class="thought-label">02 · What do the calls do?</p>
+                      <p>
+                        “100 is clear. The calls are just addresses.
+                        <strong>Which one divides? Which value goes in?</strong
+                        >”
+                      </p>
+                      <p class="expert-task">
+                        Inspect the helpers and trace the stored values.
+                      </p>
+                      <dl class="expert-facts">
+                        <div>
+                          <dt>0x64</dt>
+                          <dd>100</dd>
+                        </div>
+                        <div>
+                          <dt>…123190</dt>
+                          <dd>Divide</dd>
+                        </div>
+                      </dl>
+                    </div>
+                    <div class="expert-thought" data-step-note="3">
+                      <p class="thought-label">03 · What is the rule?</p>
+                      <p>
+                        “This path multiplies by the other input. So
+                        <strong>10% means 10% of 200</strong> after +.”
+                      </p>
+                      <p class="expert-task">
+                        Name the operands and check both operator paths.
+                      </p>
+                      <div class="expert-rule">
+                        <span>200 × 10 / 100</span>
+                        <strong>20</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <img
+                    class="expert-illustration"
+                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTIwIiBmaWxsPSJub25lIj4KICA8dGl0bGU+QW4gYW5hbHlzdCB0aGlua2luZyBhdCBhIGNvbXB1dGVyPC90aXRsZT4KICA8c3R5bGU+CkBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6IGRhcmspewpbc3Ryb2tlPSIjMjk0ZjgyIl17c3Ryb2tlOiM4OWI0ZmF9CltmaWxsPSIjNWI2NTcwIl17ZmlsbDojYTZhZGM4fQpbc3Ryb2tlPSIjNWI2NTcwIl17c3Ryb2tlOiNhNmFkYzh9CltzdHJva2U9IiNlMGU1ZTkiXXtzdHJva2U6IzQ1NDc1YX0KW2ZpbGw9IiNlZGYyZjgiXXtmaWxsOiMzMTMyNDR9CltmaWxsPSIjZjRmNmY4Il17ZmlsbDojMWUxZTJlfQpbZmlsbD0iI2ZmZiJde2ZpbGw6IzE4MTgyNX0KfQogIDwvc3R5bGU+CiAgPGcgc3Ryb2tlPSIjNWI2NTcwIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDxwYXRoIGQ9Ik0xMiAxMDFoMTM2IiBzdHJva2U9IiNlMGU1ZTkiIC8+CiAgICA8cGF0aCBkPSJNMjQgNTRoMzhsLTYgMzVIMTh6IiBmaWxsPSIjZjRmNmY4IiAvPgogICAgPHBhdGggZD0iTTE4IDg5aDUzbS0zMyAwLTIgMTJtLTggMGgyNCIgLz4KICAgIDxwYXRoIGQ9Ik04NyA1N2MtMTAgNy0xNSAxOC0xNiAzNWwyMyA5aDMzYy0xLTE0LTYtMjYtMTgtMzMiIGZpbGw9IiNlZGYyZjgiIC8+CiAgICA8cGF0aCBkPSJNODkgNjJ2LTltMTYgMTB2LTgiIC8+CiAgICA8cGF0aCBkPSJNODggMjRjOC01IDE5LTIgMjIgNSAzIDkgMCAyMC04IDI1LTggNC0xNS0xLTE2LThsLTUtMiA0LTh2LTgiIGZpbGw9IiNmZmYiIC8+CiAgICA8cGF0aCBkPSJNODMgMzFjLTQtOSAwLTE3IDExLTE5IDEwLTIgMTkgNSAyMCAxNGwtNyA3LTItOGMtNyAzLTE0IDQtMjIgMiIgZmlsbD0iIzViNjU3MCIgLz4KICAgIDxwYXRoIGQ9Ik04NyAzNWgzbS01IDEwIDcgMSIgLz4KICAgIDxwYXRoIGQ9Im0xMjEgODgtMjItMTMtOS0yNm0tNSAyIDYtNCA0IDRtNCAyNC0yMiAxMi05LTMiIHN0cm9rZT0iIzI5NGY4MiIgLz4KICAgIDxwYXRoIGQ9Im05MyA4My0xMyA4IDEzIDEwbS0xNi0xNC04IDUtMTItMiIgLz4KICA8L2c+Cjwvc3ZnPgo="
+                    alt=""
+                    width="160"
+                    height="120"
+                  />
+                  <p class="expert-caption">Illustrative expert reasoning</p>
+                </aside>
+              </div>
+              <p class="manual-work-summary">
+                <strong
+                  >You decode the instructions, follow the calls and reconstruct
+                  the calculation.</strong
+                >
+              </p>
+            </div>
+            <div class="agent-investigation" id="ask-your-agent">
+              <p class="comparison-label">
+                With REA · You ask
+                <strong class="prose-highlight">your agent</strong>
+              </p>
+              <h3 class="agent-one-prompt">One prompt.</h3>
+              <p class="agent-intro">
+                Ask your agent <strong>in plain English.</strong>
+              </p>
+              <div class="agent-terminal home-analysis-terminal">
+                <div class="terminal-header">
+                  <span class="terminal-title"
+                    ><span class="terminal-dots" aria-hidden="true"
+                      ><i></i><i></i><i></i></span
+                    >Example prompt · Calculator</span
+                  >
+                  <button
+                    class="copy-button"
+                    type="button"
+                    data-copy="home-analysis-prompt"
+                    aria-label="Copy Calculator percentage question"
+                  >
+                    Copy
+                  </button>
+                </div>
+                <p class="terminal-prompt">
+                  <span class="prompt-symbol" aria-hidden="true">›</span
+                  ><span id="home-analysis-prompt"
+                    >Use REA to inspect Windows Calculator. Why does 200 + 10%
+                    give 220?</span
+                  ><span class="terminal-cursor" aria-hidden="true"></span>
+                </p>
+                <div class="agent-reply">
+                  <p class="reply-label">
+                    Example answer · based on the findings
+                  </p>
+                  <p>
+                    After +, the % button takes
+                    <strong>a percentage of the first number.</strong>
+                  </p>
+                  <div class="agent-percent-rule">
+                    <code>10% of 200 = 20</code><span aria-hidden="true">↓</span
+                    ><strong>200 + 20 = 220</strong>
+                  </div>
+                </div>
+              </div>
+              <dl class="agent-evidence-roles">
+                <div>
+                  <dt>REA supplies</dt>
+                  <dd>
+                    The handler’s instructions, decompiled code and calls.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Your agent explains</dt>
+                  <dd>
+                    Which branch applies, what it calculates and how to rebuild
+                    it.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <figcaption>
+              Selected assembly from the installed Calculator DLL. The thoughts
+              and reply illustrate the findings.
+              <a href="#calculator">Continue with the Calculator example ↓</a>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="dinosaur">
+        <div class="container">
+          <p class="home-examples-intro">
+            <strong>Let's try two examples.</strong>
+            Change a game's speed, then return to Calculator and rebuild its %
+            button.
+          </p>
+          <div class="section-heading">
+            <p class="eyebrow">Example 01 · Chrome’s dinosaur game</p>
+            <h2>Why does the dinosaur get faster?</h2>
+          </div>
+          <dl class="case-brief">
+            <div>
+              <dt>Goal</dt>
+              <dd>
+                Rebuild the game with
+                <mark class="prose-highlight">adjustable speed.</mark>
+              </dd>
+            </div>
+            <div>
+              <dt>Why reverse engineer it?</dt>
+              <dd>
+                To reproduce its acceleration, we need
+                <strong>the rule in the running game</strong>: how fast it
+                starts, how much it increases and when it stops.
+              </dd>
+            </div>
+          </dl>
+          <div class="home-example-grid dino-example-grid">
+            <figure class="dino-demo" data-dino-demo>
+              <p class="figure-title">Play the reconstruction</p>
+              <div class="dino-stage">
+                <svg
+                  class="dino-fallback"
+                  viewBox="0 0 600 180"
+                  role="img"
+                  aria-label="A small dinosaur running toward a cactus. Recovered speed: starts at 6, increases by 0.001 per update while below 13."
+                >
+                  <path
+                    d="M0 150H600 M55 113v-30h17V65h27v24H85v17H72v16H62v13h-7v-22m-5-8v-8h-8v-9h-6v22h19m14 15v15h8v-7h-4v-8 M420 150v-48h10v48m-10-15h-12v-22h7v15h5m10-4h12v-22h-7v15h-5"
+                    fill="currentColor"
+                  />
+                  <text
+                    x="300"
+                    y="65"
+                    text-anchor="middle"
+                    fill="currentColor"
+                    font-size="18"
+                  >
+                    6 → 10 → 13
+                  </text>
+                </svg>
+                <canvas
+                  width="600"
+                  height="180"
+                  tabindex="0"
+                  aria-label="Dinosaur mini-game. Use the Jump button or press Space while the game is focused."
+                  hidden
+                ></canvas>
+              </div>
+              <div class="dino-controls" hidden>
+                <div class="dino-buttons">
+                  <button class="button" type="button" data-dino-start>
+                    Play
+                  </button>
+                  <button type="button" data-dino-jump>Jump ↑</button>
+                  <button type="button" data-dino-reset>Restart</button>
+                </div>
+                <label class="dino-speed-label"
+                  >Speed <output data-dino-speed>6.0</output
+                  ><input
+                    type="range"
+                    min="2"
+                    max="18"
+                    step="0.1"
+                    value="6"
+                    data-dino-slider
+                /></label>
+                <label class="dino-auto-label"
+                  ><input type="checkbox" data-dino-auto checked /> Use the
+                  recovered acceleration rule</label
+                >
+              </div>
+              <p class="dino-status" data-dino-status role="status">
+                Original rule: start at 6, then increase toward 13.
+              </p>
+              <figcaption>
+                Move the slider to set your own speed. Space or Jump clears a
+                cactus.
+              </figcaption>
+              <noscript
+                ><p class="caption">
+                  Enable JavaScript to play the reconstruction. The code and
+                  explanation above remain readable.
+                </p></noscript
+              >
+            </figure>
+            <div>
+              <div class="rea-finding">
+                <p class="finding-label">REA returned</p>
+                <p>
+                  <strong>The script actually running in the page.</strong> The
+                  agent reads its update function and speed settings, then uses
+                  that rule in a new game.
+                </p>
+              </div>
+              <div class="agent-terminal home-analysis-terminal">
+                <div class="terminal-header">
+                  <span class="terminal-title"
+                    ><span class="terminal-dots" aria-hidden="true"
+                      ><i></i><i></i><i></i></span
+                    >Example prompt · Dinosaur game</span
+                  >
+                  <button
+                    class="copy-button"
+                    type="button"
+                    data-copy="dino-analysis-prompt"
+                    aria-label="Copy dinosaur analysis prompt"
+                  >
+                    Copy
+                  </button>
+                </div>
+                <p class="terminal-prompt">
+                  <span class="prompt-symbol" aria-hidden="true">›</span
+                  ><span id="dino-analysis-prompt"
+                    >Use REA to inspect this dinosaur game. Why does it get
+                    faster? Show the speed rule, then build a small version with
+                    an adjustable speed.</span
+                  ><span class="terminal-cursor" aria-hidden="true"></span>
+                </p>
+              </div>
+              <p class="caption">
+                Inspected target:
+                <a href="https://wayou.github.io/t-rex-runner/"
+                  >wayou’s Chromium-derived browser edition</a
+                >.
+              </p>
+              <div class="code-block">
+                <div class="code-header">
+                  <span>REA · loaded index.js · selected lines</span>
+                </div>
+                <pre><code>if (this.currentSpeed &lt; this.config.MAX_SPEED) {
+  <span class="code-key">this.currentSpeed += this.config.ACCELERATION;</span>
+}</code></pre>
+              </div>
+              <p class="dino-rule">
+                <strong>Start at 6.</strong> Add <strong>0.001</strong> each
+                update without a collision, while speed is below
+                <strong>13</strong>.
+              </p>
+              <a class="text-link" href="https://rea.tools/examples/dino-lab/"
+                >Open the speed lab →</a
+              >
+            </div>
+          </div>
+          <figure class="workflow-figure dino-loop">
+            <p class="figure-title">What each part does</p>
+            <ol class="flow-steps">
+              <li>
+                <span class="flow-label">01 · REA</span
+                ><span class="flow-node">Read the running game’s script</span
+                ><span class="flow-note"
+                  >Return its actual code and settings to the agent.</span
+                >
+              </li>
+              <li>
+                <span class="flow-label">02 · Your agent</span
+                ><span class="flow-node">Rebuild the rule, add a control</span
+                ><span class="flow-note"
+                  >Use the recovered acceleration in a small game with a speed
+                  slider.</span
+                >
+              </li>
+              <li>
+                <span class="flow-label">03 · You</span
+                ><span class="flow-node">Change the speed and play</span
+                ><span class="flow-note"
+                  >Try the original acceleration, then choose your own
+                  pace.</span
+                >
+              </li>
+            </ol>
+          </figure>
+          <details class="home-evidence-details">
+            <summary>
+              See the script, checks and how to try the analysis
+            </summary>
+            <p>
+              REA inspected the HTTP browser edition through a local debugging
+              connection and returned the loaded <code>index.js</code>,
+              including its source and digest.
+            </p>
+            <div class="code-block">
+              <div class="code-header">
+                <span>Selected settings from the inspected script</span>
+              </div>
+              <pre><code>ACCELERATION: 0.001,
+MAX_SPEED: 13,
+SPEED: 6</code></pre>
+            </div>
+            <p>
+              We called the original game’s update function in a controlled
+              browser check, with obstacles and automatic scheduling disabled.
+              After 4,000 updates, speed was 10.0; after 10,000, it was 13.0,
+              rounded to one decimal.
+            </p>
+            <p>
+              The new mini-game keeps that speed rule. Its drawing, jumping and
+              collision code are a small teaching implementation.
+              <a href="https://rea.tools/examples/dino-lab/">Open the lab</a> to see the new code
+              and run the same speed check.
+            </p>
+            <p>
+              To inspect the target yourself, follow the
+              <a href="https://rea.tools/guides/browser/#prepare">browser connection steps</a>
+              using
+              <a href="https://wayou.github.io/t-rex-runner/"
+                >the dinosaur page</a
+              >. Give your agent that page URL and your local debugging
+              endpoint, then copy the prompt above.
+            </p>
+            <p class="caption">
+              <a
+                href="https://github.com/wayou/t-rex-runner/blob/5455bfa408ec6b707c7300ff194b7390733a766d/index.js#L565-L571"
+                >Inspected speed code</a
+              >
+              ·
+              <a href="https://rea.tools/assets/licenses/dinosaur.txt"
+                >Chromium Authors · BSD license</a
+              >
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section class="section" id="calculator">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Example 02 · Windows Calculator</p>
+            <h2>Rebuild Calculator’s % button.</h2>
+            <p class="lede">
+              We saw why <strong>200 + 10% gives 220.</strong> Now let’s recover
+              the rules for both + and ×, and try them.
+            </p>
+          </div>
+          <dl class="case-brief">
+            <div>
+              <dt>Goal</dt>
+              <dd>
+                Build a small calculator that handles
+                <mark class="prose-highlight">both + and × correctly.</mark>
+              </dd>
+            </div>
+            <div>
+              <dt>Why reverse engineer it?</dt>
+              <dd>
+                The same button uses
+                <strong>different rules after + and ×.</strong> We inspect the
+                installed app to find which number the percentage is applied to.
+              </dd>
+            </div>
+          </dl>
+          <div class="home-example-grid">
+            <figure class="percent-figure" data-percent-demo>
+              <p class="figure-title">Try the calculation</p>
+              <div
+                class="percent-operation"
+                role="group"
+                aria-label="Choose the calculation"
+                hidden
+              >
+                <button
+                  type="button"
+                  data-percent-operation="add"
+                  aria-pressed="true"
+                >
+                  200 + 10%
+                </button>
+                <button
+                  type="button"
+                  data-percent-operation="multiply"
+                  aria-pressed="false"
+                >
+                  200 × 10%
+                </button>
+              </div>
+              <div class="percent-display">
+                <span class="percent-expression" data-percent-expression
+                  >200 +</span
+                >
+                <strong data-percent-display>20</strong>
+              </div>
+              <div class="percent-controls" hidden>
+                <button
+                  type="button"
+                  class="percent-key"
+                  data-percent-key="percent"
+                >
+                  %
+                </button>
+                <button
+                  type="button"
+                  class="percent-key"
+                  data-percent-key="equals"
+                  disabled
+                >
+                  =
+                </button>
+                <button
+                  type="button"
+                  class="percent-reset"
+                  data-percent-key="reset"
+                >
+                  Reset
+                </button>
+              </div>
+              <p class="percent-status" data-percent-status role="status">
+                10% of 200 = 20. Then 200 + 20 = 220.
+              </p>
+              <figcaption>
+                Interactive illustration of the inspected percentage rule.
+              </figcaption>
+            </figure>
+            <div class="percent-explanation">
+              <div class="rea-finding">
+                <p class="finding-label">REA returned</p>
+                <p>
+                  <strong
+                    >One branch divides by 100. The other also multiplies by the
+                    first number.</strong
+                  >
+                  The agent uses both to recreate the % button.
+                </p>
+              </div>
+              <p>
+                For this example, <code>previous = 200</code> and
+                <code>current = 10</code>.
+              </p>
+              <div class="agent-terminal">
+                <div class="terminal-header">
+                  <span class="terminal-title"
+                    ><span class="terminal-dots" aria-hidden="true"
+                      ><i></i><i></i><i></i></span
+                    >Example prompt · Rebuild the % button</span
+                  >
+                  <button
+                    class="copy-button"
+                    type="button"
+                    data-copy="calculator-analysis-prompt"
+                    aria-label="Copy Calculator analysis prompt"
+                  >
+                    Copy
+                  </button>
+                </div>
+                <p class="terminal-prompt">
+                  <span class="prompt-symbol" aria-hidden="true">›</span
+                  ><span id="calculator-analysis-prompt"
+                    >Use REA to inspect Windows Calculator’s % button. Recover
+                    the rules after + and ×, then build a small calculator that
+                    uses both.</span
+                  ><span class="terminal-cursor" aria-hidden="true"></span>
+                </p>
+              </div>
+              <div class="code-block">
+                <div class="code-header">
+                  <span>Readable summary of the % handler</span>
+                </div>
+                <pre><code>if (operation == multiply || operation == divide) {
+  percent = current / 100;
+} else {
+  <span class="code-key">percent = current * previous / 100;</span>
+}</code></pre>
+              </div>
+              <dl class="percent-rules">
+                <div>
+                  <dt>With +</dt>
+                  <dd>
+                    <strong>Take 10% of the first number.</strong
+                    ><code>10% of 200 = 20 → 200 + 20 = 220</code>
+                  </dd>
+                </div>
+                <div>
+                  <dt>With ×</dt>
+                  <dd>
+                    <strong>Turn 10% into 0.1.</strong
+                    ><code>200 × 0.1 = 20</code>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+          <figure class="workflow-figure calculator-trace">
+            <p class="figure-title">
+              From the installed app to a working % button
+            </p>
+            <ol class="flow-steps">
+              <li>
+                <span class="flow-label">01 · REA reads calc.exe</span
+                ><span class="flow-node">It launches the Calculator app</span
+                ><span class="flow-note"
+                  >The code opens <code>ms-calculator:</code>. The agent then
+                  selects the installed app’s library.</span
+                >
+              </li>
+              <li>
+                <span class="flow-label">02 · REA reads the library</span
+                ><span class="flow-node">Return the % handler’s code</span
+                ><span class="flow-note"
+                  >The function checks the operator and uses the constant
+                  <code>100</code>.</span
+                >
+              </li>
+              <li>
+                <span class="flow-label">03 · Your agent interprets it</span
+                ><span class="flow-node">Explain and reproduce the rules</span
+                ><span class="flow-note"
+                  >Crosscheck the branch with Microsoft’s source, then try + and
+                  × above.</span
+                >
+              </li>
+            </ol>
+          </figure>
+          <details class="home-evidence-details">
+            <summary>See the real code and how the answer was checked</summary>
+
+            <div class="code-comparison">
+              <div class="code-block">
+                <div class="code-header">
+                  <span>REA · selected original instructions</span>
+                </div>
+                <pre><code>0x180124945: MOV EAX, dword ptr [R13 + 0x18]
+0x180124949: <span class="code-key">CMP EAX, 0x5c</span>
+0x18012494c: JZ 0x180124aba
+0x180124952: <span class="code-key">CMP EAX, 0x5b</span>
+0x180124955: JZ 0x180124aba
+0x18012495b: <span class="code-key">MOV EDX, 0x64</span></code></pre>
+              </div>
+              <div class="code-block">
+                <div class="code-header">
+                  <span>Operator IDs · Microsoft’s source</span>
+                </div>
+                <pre><code>#define IDC_MUL 92      // 0x5c
+#define IDC_DIV 91      // 0x5b
+#define IDC_PERCENT 118 // 0x76
+
+0x64 = 100</code></pre>
+              </div>
+            </div>
+
+            <p class="caption">
+              Inspected with REA 4.1.0: Windows Calculator 11.2508.4.0, x64. The
+              readable summary uses names from Microsoft’s public source to
+              explain the recovered branch.
+            </p>
+            <p class="caption">
+              <a
+                href="https://github.com/microsoft/calculator/blob/d125246a4e19842ce1332e6c7839cf0e110027d8/src/CalcManager/CEngine/scifunc.cpp#L98-L111"
+                >Percentage implementation</a
+              >
+              ·
+              <a
+                href="https://github.com/microsoft/calculator/blob/d125246a4e19842ce1332e6c7839cf0e110027d8/src/CalculatorUnitTests/CalculatorManagerTest.cpp#L350-L370"
+                >Microsoft’s test cases</a
+              >
+              · <a href="https://rea.tools/guides/native/">Native setup guide</a>
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section class="section" id="try-rea">
+        <div class="container start-row">
+          <div>
+            <p class="eyebrow">Your first investigation</p>
+            <h2>Try REA on a small app.</h2>
+            <p>
+              Download our Notes example, trace its CSV export, and check one
+              changed input.
+            </p>
+          </div>
+          <a class="button" href="https://rea.tools/first-investigation/"
+            >Try the guided example</a
+          >
+        </div>
+      </section>
+
+      <section class="section" id="analyze">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Want to go deeper?</h2>
+            <p>
+              Tell your agent what you want to understand or build. With REA,
+              you can work together on anything from
+              <strong>cloning this website</strong> to
+              <strong>reconstructing a game from its executable.</strong>
+            </p>
+          </div>
+          <div class="code-comparison home-project-prompts">
+            <div>
+              <div class="agent-terminal">
+                <div class="terminal-header">
+                  <span class="terminal-title">
+                    <span class="terminal-dots" aria-hidden="true"
+                      ><i></i><i></i><i></i></span
+                    >Example prompt · Website
+                  </span>
+                  <button
+                    class="copy-button"
+                    type="button"
+                    data-copy="website-project-prompt"
+                    aria-label="Copy website project prompt"
+                  >
+                    Copy
+                  </button>
+                </div>
+                <p class="terminal-prompt">
+                  <span class="prompt-symbol" aria-hidden="true">›</span
+                  ><span id="website-project-prompt"
+                    >Use REA to inspect https://rea.tools/. Clone this website
+                    for me.</span
+                  ><span class="terminal-cursor" aria-hidden="true"></span>
+                </p>
+              </div>
+              <p class="caption">Yes, this one.</p>
+            </div>
+            <div>
+              <div class="agent-terminal">
+                <div class="terminal-header">
+                  <span class="terminal-title">
+                    <span class="terminal-dots" aria-hidden="true"
+                      ><i></i><i></i><i></i></span
+                    >Example prompt · Game reconstruction
+                  </span>
+                  <button
+                    class="copy-button"
+                    type="button"
+                    data-copy="game-project-prompt"
+                    aria-label="Copy game reconstruction prompt"
+                  >
+                    Copy
+                  </button>
+                </div>
+                <p class="terminal-prompt">
+                  <span class="prompt-symbol" aria-hidden="true">›</span
+                  ><span id="game-project-prompt"
+                    >Use REA to reconstruct this game from its executable.
+                    Recover the gameplay logic in C and test it against the
+                    original.</span
+                  ><span class="terminal-cursor" aria-hidden="true"></span>
+                </p>
+              </div>
+              <p class="caption">
+                <a href="https://rea.tools/showcase/dx-ball/">See the DX-Ball case study →</a>
+              </p>
+            </div>
+          </div>
+          <p class="caption">
+            For setup and analysis steps, choose your target:
+          </p>
+          <div class="workflows" id="analysis-guides">
+            <div>
+              <h3>Native binaries</h3>
+              <p>
+                Inspect functions, strings, references and call relationships in
+                executables and libraries.
+              </p>
+              <a href="https://rea.tools/guides/native/">Native analysis guide</a>
+            </div>
+            <div>
+              <h3>JavaScript &amp; Electron</h3>
+              <p>
+                Map modules, routes, IPC and native dependencies from an
+                application folder or ASAR archive.
+              </p>
+              <a href="https://rea.tools/guides/javascript/">Application workflows</a>
+            </div>
+            <div>
+              <h3>Browser &amp; runtime activity</h3>
+              <p>
+                Capture selected browser or process activity, then compare the
+                results across runs.
+              </p>
+              <a href="https://rea.tools/guides/browser/">Browser observation guide</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="questions">
+        <div class="container">
+          <h2>Any questions?</h2>
+          <p>
+            <a href="https://rea.tools/faq/">Read the FAQ</a>,
+            <a href="https://discord.gg/GkcryMnJDM">chat with us on Discord</a>,
+            or
+            <a href="https://github.com/morluto/rea/issues/new/choose"
+              >open a GitHub issue</a
+            >
+            for bugs and feature requests.
+          </p>
+        </div>
+      </section>
+      <section class="section" id="community">
+        <div class="container">
+          <h2>Join the community</h2>
+          <p>
+            Share investigations and get help from other REA users on Discord.
+            Follow REA on X for project updates.
+          </p>
+          <div class="actions">
+            <a class="button" href="https://discord.gg/GkcryMnJDM"
+              >Join the community</a
+            >
+            <a class="button secondary" href="https://x.com/reatools"
+              >Follow @reatools on X</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- website:footer:start -->
+    <!-- prettier-ignore -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>REA · Reverse Engineer Anything</p>
+        <div class="footer-links">
+          <a href="https://github.com/morluto/rea">Source</a
+          ><a href="https://github.com/morluto/rea/blob/main/LICENSE">MIT license</a
+          ><a href="https://discord.gg/GkcryMnJDM">Join the community</a
+          ><a href="https://x.com/reatools">Follow us on X</a>
+        </div>
+      </div>
+    </footer>
+    <p class="sr-only" id="copy-status" role="status" aria-live="polite"></p>
+    <a class="back-to-top" href="#top" aria-label="Back to top">
+      <span aria-hidden="true">↑</span> Top
+    </a>
+    <!-- website:footer:end -->
+  <script>
+function initializeCopyButtons() {
+  document.querySelectorAll("[data-copy]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const target = document.getElementById(button.getAttribute("data-copy"));
+      if (target === null) return;
+
+      const status = document.getElementById("copy-status");
+      const content = target.textContent.trim();
+      const text =
+        target.closest(".terminal-prompt") === null
+          ? content
+          : content.replace(/\s+/g, " ");
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = "Copied";
+        if (status !== null) status.textContent = "Code copied to clipboard.";
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(target);
+        const selection = window.getSelection();
+        if (selection !== null) {
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+        button.textContent = "Selected";
+        if (status !== null)
+          status.textContent = "Code selected. Use your keyboard to copy it.";
+      }
+
+      window.setTimeout(() => {
+        button.textContent = "Copy";
+      }, 2000);
+    });
+  });
+}
+
+initializeCopyButtons();
+
+function initializeStepComparisons() {
+  document.querySelectorAll("[data-step-comparison]").forEach((comparison) => {
+    const buttons = comparison.querySelectorAll("[data-select-step]");
+    const selectStep = (button) => {
+      const selected = button.getAttribute("data-select-step");
+      buttons.forEach((candidate) => {
+        candidate.setAttribute("aria-pressed", String(candidate === button));
+      });
+      comparison.querySelectorAll("[data-step]").forEach((fragment) => {
+        fragment.classList.toggle(
+          "is-active",
+          fragment.getAttribute("data-step") === selected,
+        );
+      });
+      comparison.querySelectorAll("[data-step-note]").forEach((note) => {
+        note.hidden = note.getAttribute("data-step-note") !== selected;
+      });
+    };
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => selectStep(button));
+    });
+    const initial = Array.from(buttons).find(
+      (button) => button.getAttribute("aria-pressed") === "true",
+    );
+    if (initial) selectStep(initial);
+  });
+}
+
+initializeStepComparisons();
+
+function initializeFaqAnswers() {
+  const answers = document.querySelectorAll("[data-faq] details[id]");
+  if (answers.length === 0) return;
+
+  const revealAnswer = (fragment) => {
+    answers.forEach((answer) => {
+      if (`#${answer.id}` === fragment) answer.open = true;
+    });
+  };
+  window.addEventListener("hashchange", () =>
+    revealAnswer(window.location.hash),
+  );
+  document.querySelectorAll('[data-faq] a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", () =>
+      revealAnswer(link.getAttribute("href")),
+    );
+  });
+  revealAnswer(window.location.hash);
+}
+
+initializeFaqAnswers();
+
+function initializeBackToTop() {
+  const link = document.querySelector(".back-to-top");
+  if (link === null) return;
+
+  const updateVisibility = () => {
+    link.hidden = window.scrollY < 400;
+  };
+  window.addEventListener("scroll", updateVisibility, { passive: true });
+  updateVisibility();
+
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    document
+      .querySelector(".brand, .breadcrumb a")
+      ?.focus({ preventScroll: true });
+  });
+}
+
+initializeBackToTop();
+
+async function initializeGitHubStars() {
+  const link = document.querySelector(".nav-github");
+  const count = link?.querySelector(".nav-github-count");
+  if (count === null || count === undefined) return;
+
+  try {
+    const response = await fetch("https://api.github.com/repos/morluto/rea", {
+      headers: { Accept: "application/vnd.github+json" },
+      credentials: "omit",
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!response.ok) return;
+    const repository = await response.json();
+    const stars = repository.stargazers_count;
+    if (!Number.isSafeInteger(stars) || stars < 0) return;
+
+    const formatted = new Intl.NumberFormat("en-US").format(stars);
+    const label = `REA on GitHub (${formatted} ${stars === 1 ? "star" : "stars"})`;
+    count.textContent = formatted;
+    count.hidden = false;
+    link.setAttribute("aria-label", label);
+    link.setAttribute("title", label);
+  } catch {
+    // Keep the repository link usable when GitHub is unavailable.
+  }
+}
+
+initializeGitHubStars();
+
+</script>
+<script>
+function initializePercentDemo() {
+  const demo = document.querySelector("[data-percent-demo]");
+  if (demo === null) return;
+  const display = demo.querySelector("[data-percent-display]");
+  const expression = demo.querySelector("[data-percent-expression]");
+  const status = demo.querySelector("[data-percent-status]");
+  const equals = demo.querySelector('[data-percent-key="equals"]');
+  const operations = demo.querySelectorAll("[data-percent-operation]");
+  let operation = "add";
+  let stage = "input";
+
+  const render = () => {
+    const adding = operation === "add";
+    const previous = 200;
+    const current = 10;
+    const percent = adding ? (current * previous) / 100 : current / 100;
+    const result = adding ? previous + percent : previous * percent;
+    const operator = adding ? "+" : "×";
+    expression.textContent =
+      stage === "result" ? `200 ${operator} ${percent} =` : `200 ${operator}`;
+    display.textContent = String(
+      stage === "input" ? current : stage === "percent" ? percent : result,
+    );
+    equals.disabled = stage !== "percent";
+    status.textContent =
+      stage === "input"
+        ? "Press % to see what happens to 10."
+        : stage === "percent"
+          ? adding
+            ? "10% of 200 is 20. Press = to add it."
+            : "For multiplication, 10 becomes 0.1. Press = to multiply."
+          : `200 ${operator} ${percent} = ${result}.`;
+  };
+
+  operations.forEach((button) => {
+    button.addEventListener("click", () => {
+      operation = button.getAttribute("data-percent-operation");
+      stage = "input";
+      operations.forEach((candidate) => {
+        candidate.setAttribute("aria-pressed", String(candidate === button));
+      });
+      render();
+    });
+  });
+  demo.querySelectorAll("[data-percent-key]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const key = button.getAttribute("data-percent-key");
+      stage =
+        key === "reset" ? "input" : key === "percent" ? "percent" : "result";
+      render();
+    });
+  });
+  demo.querySelector(".percent-operation").hidden = false;
+  demo.querySelector(".percent-controls").hidden = false;
+  render();
+}
+
+function initializeExpertAssembly() {
+  const excerpt = document.querySelector("[data-expert-assembly]");
+  if (excerpt && window.matchMedia("(max-width: 640px)").matches) {
+    excerpt.open = false;
+  }
+}
+
+function initializeHomeNavigation() {
+  const menu = document.querySelector("[data-home-nav]");
+  if (menu === null) return;
+  const currentLabel = menu.querySelector("[data-home-nav-current]");
+  if (currentLabel === null) return;
+  const wideScreen = window.matchMedia("(min-width: 1440px)");
+  const entries = Array.from(menu.querySelectorAll('a[href^="#"]'))
+    .map((link) => ({
+      link,
+      target: document.getElementById(link.getAttribute("href").slice(1)),
+    }))
+    .filter((entry) => entry.target !== null);
+  if (entries.length === 0) return;
+
+  const updatePosition = () => {
+    const offset = wideScreen.matches ? 40 : 88;
+    let current = entries[0];
+    entries.forEach((entry) => {
+      if (entry.target.getBoundingClientRect().top <= offset) current = entry;
+    });
+    if (
+      window.scrollY + window.innerHeight >=
+      document.documentElement.scrollHeight - 2
+    ) {
+      const selected = entries.find(
+        (entry) => entry.link.hash === window.location.hash,
+      );
+      const selectedTop = selected?.target.getBoundingClientRect().top;
+      current =
+        selectedTop !== undefined &&
+        selectedTop >= 0 &&
+        selectedTop < window.innerHeight
+          ? selected
+          : entries[entries.length - 1];
+    }
+    entries.forEach((entry) => {
+      if (entry === current)
+        entry.link.setAttribute("aria-current", "location");
+      else entry.link.removeAttribute("aria-current");
+    });
+    currentLabel.textContent = current.link.textContent;
+  };
+  const updateLayout = () => {
+    menu.open = wideScreen.matches;
+    updatePosition();
+  };
+  let scheduled = false;
+  const schedulePosition = () => {
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(() => {
+      scheduled = false;
+      updatePosition();
+    });
+  };
+  entries.forEach(({ link, target }) => {
+    link.addEventListener("click", () => {
+      if (!wideScreen.matches) menu.open = false;
+      const heading = target.querySelector("h2") ?? target;
+      heading.setAttribute("tabindex", "-1");
+      window.requestAnimationFrame(() =>
+        heading.focus({ preventScroll: true }),
+      );
+    });
+  });
+  wideScreen.addEventListener("change", updateLayout);
+  window.addEventListener("scroll", schedulePosition, { passive: true });
+  window.addEventListener("resize", schedulePosition, { passive: true });
+  window.addEventListener("hashchange", schedulePosition);
+  window.addEventListener("load", schedulePosition);
+  updateLayout();
+}
+
+initializeExpertAssembly();
+initializePercentDemo();
+initializeHomeNavigation();
+
+</script>
+<script type="module">
+
+// Speed rule recovered from wayou's Chromium-derived browser edition.
+// Source and controlled checks: website/evidence/calculator-and-dino.md.
+const SPEED_RULE = Object.freeze({
+  start: 6,
+  acceleration: 0.001,
+  threshold: 13,
+});
+
+/** Advance one collision-free update using the inspected speed rule. */
+function advanceSpeed(speed) {
+  return speed < SPEED_RULE.threshold ? speed + SPEED_RULE.acceleration : speed;
+}
+
+/** Replay the recovered rule for a chosen number of updates. */
+function simulateSpeed(updates) {
+  let speed = SPEED_RULE.start;
+  for (let update = 0; update < updates; update += 1) {
+    speed = advanceSpeed(speed);
+  }
+  return speed;
+}
+
+
+// A new teaching game around the recovered speed rule. Drawing, jump physics
+// and rectangle collision checks are authored for this demo.
+function initializeDinoDemo(demo) {
+  const canvas = demo.querySelector("canvas");
+  const context = canvas.getContext("2d");
+  if (context === null) return;
+  const start = demo.querySelector("[data-dino-start]");
+  const slider = demo.querySelector("[data-dino-slider]");
+  const auto = demo.querySelector("[data-dino-auto]");
+  const output = demo.querySelector("[data-dino-speed]");
+  const status = demo.querySelector("[data-dino-status]");
+  const ground = 148;
+  const dinosaurX = 52;
+  const dinosaur = new Path2D(
+    "M16 18V2H48V24H35V32H25V43H16V53H8V32H0V23H6V29H16Z M12 47V59H5V54H8V47Z M24 42V54H31V59H20V47Z M34 29H44V35H39V32H34Z",
+  );
+  let speed = SPEED_RULE.start;
+  let height = 0;
+  let velocity = 0;
+  let distance = 0;
+  let obstacles = [];
+  let running = false;
+  let crashed = false;
+  let frame = 0;
+  let lastTime = 0;
+  let elapsed = 0;
+
+  const updateSpeedDisplay = () => {
+    output.value = speed.toFixed(1);
+    slider.value = speed.toFixed(1);
+  };
+
+  const draw = () => {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.strokeStyle = "#b7c0c9";
+    context.beginPath();
+    context.moveTo(0, ground);
+    context.lineTo(canvas.width, ground);
+    for (let x = -(distance % 70); x < canvas.width; x += 70) {
+      context.moveTo(x, ground + 7);
+      context.lineTo(x + 12, ground + 7);
+    }
+    context.stroke();
+    context.fillStyle = "#5b6570";
+    for (const obstacle of obstacles) {
+      context.fillRect(
+        obstacle.x + 6,
+        ground - obstacle.height,
+        8,
+        obstacle.height,
+      );
+      context.fillRect(obstacle.x, ground - obstacle.height + 12, 6, 7);
+      context.fillRect(obstacle.x, ground - obstacle.height + 3, 5, 15);
+      context.fillRect(obstacle.x + 14, ground - obstacle.height + 19, 7, 6);
+      context.fillRect(obstacle.x + 17, ground - obstacle.height + 8, 4, 17);
+    }
+    context.save();
+    context.translate(dinosaurX, ground - 59 - height);
+    context.fillStyle = crashed ? "#8c4b40" : "#294f82";
+    context.fill(dinosaur);
+    context.fillStyle = "#ffffff";
+    context.fillRect(39, 7, 4, 4);
+    context.restore();
+    context.fillStyle = "#5b6570";
+    context.font = "13px monospace";
+    context.textAlign = "right";
+    context.fillText(
+      `DISTANCE ${String(Math.floor(distance / 100)).padStart(4, "0")}`,
+      580,
+      28,
+    );
+    if (!running) {
+      context.textAlign = "center";
+      context.font = "15px system-ui";
+      context.fillText(
+        crashed ? "Hit a cactus. Try another speed." : "Space or Jump ↑",
+        330,
+        85,
+      );
+    }
+  };
+
+  const stop = (message) => {
+    running = false;
+    cancelAnimationFrame(frame);
+    start.textContent = crashed ? "Play again" : "Play";
+    if (message) status.textContent = message;
+    draw();
+  };
+
+  const reset = () => {
+    stop();
+    crashed = false;
+    height = 0;
+    velocity = 0;
+    distance = 0;
+    obstacles = [{ x: 550, height: 38 }];
+    if (auto.checked) speed = SPEED_RULE.start;
+    elapsed = 0;
+    start.textContent = "Play";
+    status.textContent = "Press Play, then jump over the cactus.";
+    updateSpeedDisplay();
+    draw();
+  };
+
+  const update = () => {
+    if (auto.checked) speed = advanceSpeed(speed);
+    distance += speed;
+    if (height > 0 || velocity > 0) {
+      height = Math.max(0, height + velocity);
+      velocity -= 0.55;
+      if (height === 0) velocity = 0;
+    }
+    obstacles.forEach((obstacle) => {
+      obstacle.x -= speed;
+    });
+    obstacles = obstacles.filter((obstacle) => obstacle.x > -25);
+    const last = obstacles[obstacles.length - 1];
+    const gap = 400 + speed * 18;
+    if (last === undefined || last.x < 600 - gap) {
+      obstacles.push({ x: 600, height: 38 });
+    }
+    const left = dinosaurX + 8;
+    const right = dinosaurX + 39;
+    const bottom = ground - height;
+    if (
+      obstacles.some(
+        (obstacle) =>
+          right > obstacle.x &&
+          left < obstacle.x + 21 &&
+          bottom > ground - obstacle.height + 4,
+      )
+    ) {
+      crashed = true;
+      stop("Hit a cactus. Press Play again, or change the speed and restart.");
+    }
+  };
+
+  const animate = (time) => {
+    if (!running) return;
+    elapsed += Math.min(time - lastTime, 100);
+    lastTime = time;
+    while (elapsed >= 1000 / 60 && running) {
+      elapsed -= 1000 / 60;
+      update();
+    }
+    updateSpeedDisplay();
+    draw();
+    if (running) frame = requestAnimationFrame(animate);
+  };
+
+  const play = () => {
+    if (crashed) reset();
+    if (running) return;
+    running = true;
+    lastTime = performance.now();
+    elapsed = 0;
+    start.textContent = "Pause";
+    status.textContent = "Running. Space or Jump clears a cactus.";
+    frame = requestAnimationFrame(animate);
+  };
+
+  const jump = () => {
+    if (crashed) reset();
+    play();
+    if (height === 0) velocity = 10.5;
+  };
+
+  start.addEventListener("click", () => {
+    if (running) stop("Paused. Press Play to continue.");
+    else play();
+  });
+  demo.querySelector("[data-dino-jump]").addEventListener("click", jump);
+  demo.querySelector("[data-dino-reset]").addEventListener("click", reset);
+  canvas.addEventListener("keydown", (event) => {
+    if (event.code === "Space" || event.code === "ArrowUp") {
+      event.preventDefault();
+      if (!event.repeat) jump();
+    }
+  });
+  canvas.addEventListener("pointerdown", () => {
+    canvas.focus();
+    jump();
+  });
+  slider.addEventListener("input", () => {
+    auto.checked = false;
+    speed = Number(slider.value);
+    updateSpeedDisplay();
+    status.textContent = running
+      ? `Fixed speed: ${speed.toFixed(1)}. Space or Jump clears a cactus.`
+      : `Fixed speed: ${speed.toFixed(1)}. Press Play to try it.`;
+    draw();
+  });
+  auto.addEventListener("change", () => {
+    if (auto.checked) speed = SPEED_RULE.start;
+    updateSpeedDisplay();
+    status.textContent = auto.checked
+      ? "Recovered rule: start at 6, then increase toward 13."
+      : `Fixed speed: ${speed.toFixed(1)}.`;
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && running) stop("Paused. Press Play to continue.");
+  });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting && running)
+        stop("Paused. Press Play to continue.");
+    }).observe(demo);
+  }
+  demo.querySelector(".dino-fallback").setAttribute("hidden", "");
+  demo.querySelector(".dino-controls").hidden = false;
+  canvas.hidden = false;
+  reset();
+}
+
+document.querySelectorAll("[data-dino-demo]").forEach(initializeDinoDemo);
+
+const speedCheck = document.querySelector("[data-speed-check]");
+if (speedCheck !== null) speedCheck.hidden = false;
+speedCheck?.addEventListener("click", () => {
+  let matches = true;
+  document.querySelectorAll("[data-speed-updates]").forEach((cell) => {
+    const speed = simulateSpeed(
+      Number(cell.getAttribute("data-speed-updates")),
+    ).toFixed(3);
+    cell.textContent = speed;
+    matches =
+      matches && speed === cell.parentElement.children[1].textContent.trim();
+  });
+  document.querySelector("[data-speed-check-status]").textContent = matches
+    ? "Replayed the recovered rule. All four values match the controlled original-game check when rounded to three decimals."
+    : "The replay differs from the recorded original-game values. Compare the speed rule and settings above.";
+});
+
+</script>
+</body>
+</html>
