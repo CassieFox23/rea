@@ -76,7 +76,7 @@ A configuração oferece suporte ao Claude Code, Codex, Cursor, Gemini CLI, Grok
 Investigue como a busca funciona no aplicativo Notes, mostre as evidências e crie uma funcionalidade semelhante para o meu projeto.
 ```
 
-Substitua Notes pelo aplicativo alvo e indique a funcionalidade que deseja entender.
+Substitua [Notes](https://rea.tools/first-investigation/) pelo aplicativo alvo e indique a funcionalidade que deseja entender.
 
 ### Use o terminal
 

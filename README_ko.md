@@ -76,7 +76,7 @@ npx rea-agents setup
 Notes 앱의 검색 기능이 어떻게 작동하는지 조사하고, 근거를 보여 준 다음, 내 프로젝트에 비슷한 기능을 구현해 줘.
 ```
 
-Notes를 대상 앱으로 바꾸고 이해하고 싶은 기능을 지정하세요.
+[Notes](https://rea.tools/first-investigation/)를 대상 앱으로 바꾸고 이해하고 싶은 기능을 지정하세요.
 
 ### 터미널 사용
 

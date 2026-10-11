@@ -76,7 +76,7 @@ npx rea-agents setup
 弄清 Notes 应用的搜索功能如何工作，展示证据，并为我的项目实现类似功能。
 ```
 
-把 Notes 替换为目标应用，并描述你想了解的功能。
+把 [Notes](https://rea.tools/first-investigation/) 替换为目标应用，并描述你想了解的功能。
 
 ### 使用终端
 

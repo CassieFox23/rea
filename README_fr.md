@@ -77,7 +77,7 @@ Comprends comment fonctionne la recherche dans l'app Notes, montre-moi les preuv
 et construis une fonctionnalité similaire pour mon projet.
 ```
 
-Remplacez Notes par votre application cible et la fonctionnalité que vous voulez comprendre.
+Remplacez [Notes](https://rea.tools/first-investigation/) par votre application cible et la fonctionnalité que vous voulez comprendre.
 
 ### Utiliser le terminal
 

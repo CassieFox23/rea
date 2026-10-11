@@ -76,7 +76,7 @@ Quá trình thiết lập hỗ trợ Claude Code, Codex, Cursor, Gemini CLI, Gro
 Tìm hiểu cách tính năng tìm kiếm trong ứng dụng Notes hoạt động, cho tôi xem bằng chứng và xây dựng tính năng tương tự cho dự án của tôi.
 ```
 
-Thay Notes bằng ứng dụng mục tiêu và chỉ rõ tính năng bạn muốn hiểu.
+Thay [Notes](https://rea.tools/first-investigation/) bằng ứng dụng mục tiêu và chỉ rõ tính năng bạn muốn hiểu.
 
 ### Sử dụng terminal
 

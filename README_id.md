@@ -76,7 +76,7 @@ Penyiapan mendukung Claude Code, Codex, Cursor, Gemini CLI, Grok Build, dan [age
 Pahami cara kerja pencarian di aplikasi Notes, tunjukkan buktinya, dan buat fitur serupa untuk proyek saya.
 ```
 
-Ganti Notes dengan aplikasi target dan fitur yang ingin Anda pahami.
+Ganti [Notes](https://rea.tools/first-investigation/) dengan aplikasi target dan fitur yang ingin Anda pahami.
 
 ### Gunakan terminal
 

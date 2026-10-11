@@ -15,6 +15,9 @@ Evidence through
 second operation does not rerun static analysis or contact CDP; it preserves
 separate static, runtime, and cross-layer inference authorities.
 
+To turn one bundled script into readable modules, see
+[JavaScript source recovery](javascript-recovery.md).
+
 ## Public workflow
 
 The tool reads the caller-selected local directory or ASAR path directly:

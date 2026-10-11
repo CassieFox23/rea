@@ -76,7 +76,7 @@ Die Einrichtung unterstützt Claude Code, Codex, Cursor, Gemini CLI, Grok Build 
 Untersuche, wie die Suche in der Notes-App funktioniert, zeige mir die Belege und entwickle eine ähnliche Funktion für mein Projekt.
 ```
 
-Ersetze Notes durch deine Ziel-App und benenne die Funktion, die du verstehen möchtest.
+Ersetze [Notes](https://rea.tools/first-investigation/) durch deine Ziel-App und benenne die Funktion, die du verstehen möchtest.
 
 ### Das Terminal verwenden
 

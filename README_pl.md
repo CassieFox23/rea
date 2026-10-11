@@ -76,7 +76,7 @@ Konfigurator obsługuje Claude Code, Codex, Cursor, Gemini CLI, Grok Build i [in
 Sprawdź, jak działa wyszukiwanie w aplikacji Notes, pokaż mi dowody i stwórz podobną funkcję dla mojego projektu.
 ```
 
-Zastąp Notes wybraną aplikacją i wskaż funkcję, którą chcesz zrozumieć.
+Zastąp [Notes](https://rea.tools/first-investigation/) wybraną aplikacją i wskaż funkcję, którą chcesz zrozumieć.
 
 ### Korzystaj z terminala
 
