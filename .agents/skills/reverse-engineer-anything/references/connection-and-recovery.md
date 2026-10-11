@@ -109,6 +109,10 @@ Node on PATH when the child shell loses a prefix installation. Avoid internal
 `dist/cli.js` entrypoints or global toolchain changes. MCP may have its own valid
 launcher even when a shell cannot resolve `rea`.
 
+For a missing provider or tool, check the settings REA reads in the
+[environment variable reference](https://github.com/morluto/rea/blob/main/docs/environment.md).
+Set `REA_LOG_LEVEL=debug` for more diagnostics.
+
 For a user-supplied JavaScript tree or ASAR, select output files in the authorized
 workspace and save complete Evidence before reading a view:
 
