@@ -2,13 +2,28 @@
 
 ## Generated catalog
 
-Run `npm run docs:generate` in a source checkout to generate the machine-readable
-catalog at `docs/public/product-catalog.json`. Documentation deployments serve
-the same file at [/rea/product-catalog.json](/rea/product-catalog.json). PR CI retains it with the packaged
-skill and portable conformance projections in the `generated-docs` artifact.
+The catalog of tools, providers and CLI commands is generated from the source.
+It is not checked in, and no website publishes it. There are three ways to read
+it.
+
+- **Installed REA:** `rea doctor --json` reports the tool inventory under
+  `identity.catalog.tools`, with totals under `identity.catalog.counts`. To
+  list the tool names, run
+  `rea doctor --json | jq -r '.identity.catalog.tools[].name'`. Doctor exits 1
+  when required readiness checks fail (see [exit status](cli.md#output-and-exit-status)).
+  The catalog is still printed. Without a
+  global install, run `npx -y rea-agents@latest doctor --json`.
+- **Running server:** `binary_session` remains the authoritative source of
+  catalog identity and tool availability.
+- **Source checkout:** `npm run docs:generate` writes the full machine-readable
+  catalog to `docs/public/product-catalog.json`. That file is gitignored.
+  `npm run docs:dev` and `npm run docs:build` serve it at
+  `/rea/product-catalog.json` on a local VitePress site. PR CI retains it with
+  the packaged skill and portable conformance projections in the
+  `generated-docs` artifact.
+
 These outputs describe the exact source revision being built; they are not
-checked-in snapshots. For a running server, `binary_session` remains the
-authoritative source of catalog identity and tool availability.
+checked-in snapshots.
 
 ## Identity and discovery
 
