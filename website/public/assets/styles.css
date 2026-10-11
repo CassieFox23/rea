@@ -1020,6 +1020,11 @@ pre code {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
+.step-comparison pre .is-active {
+  display: inline-block;
+  width: 100%;
+  border-radius: 4px;
+}
 .step-detail {
   margin-block: 1.1rem;
   padding-left: 1rem;
@@ -1666,8 +1671,8 @@ pre code {
   color: var(--muted);
 }
 .prose-highlight {
-  padding: 0.04em 0.16em;
-  border-radius: 2px;
+  padding: 0.08em 0.35em;
+  border-radius: 4px;
   background: #e4ecf5;
   color: var(--accent);
   font-weight: 600;
@@ -2491,8 +2496,13 @@ pre code {
   .dino-buttons .button {
     color: var(--page);
   }
-  .button:hover {
+  .button {
+    border-color: #bac2de;
     background: #bac2de;
+  }
+  .button:hover {
+    border-color: #a6adc8;
+    background: #a6adc8;
   }
   .code-key,
   .notion-channel,
@@ -2520,6 +2530,16 @@ pre code {
   }
   .agent-terminal {
     border-color: var(--line);
+    background: #181825;
+  }
+  .terminal-header {
+    border-bottom-color: #313244;
+  }
+  .agent-terminal .copy-button:hover {
+    background: #313244;
+  }
+  .agent-one-prompt {
+    color: var(--ink);
   }
   .workflow-figure {
     background: var(--soft);
