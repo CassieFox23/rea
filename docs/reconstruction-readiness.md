@@ -61,7 +61,8 @@ The evaluator rejects or withholds readiness when:
   equivalent;
 - a deliberate primary divergence is not localized;
 - contradiction Evidence or its affected comparison is missing;
-- the reconstruction obligation ledger is not `ready`, has no required
+- the [reconstruction obligation ledger](reconstruction-obligation-ledgers.md)
+  is not `ready`, has no required
   obligation, or retains an unowned/unverified required obligation;
 - a process exceeds its declared target/lifecycle, cancellation loses diagnostics, or owned
   resources remain;
