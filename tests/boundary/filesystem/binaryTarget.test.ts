@@ -804,6 +804,57 @@ describe("binary Info.plist app bundle targets", () => {
   );
 });
 
+describe("NE binary target I/O", () => {
+  const neImage = (headerOffset: number, signature: string, length: number) => {
+    const bytes = Buffer.alloc(length);
+    bytes.write("MZ", 0, "ascii");
+    bytes.writeUInt32LE(headerOffset, 0x3c);
+    bytes.write(signature, headerOffset, "ascii");
+    return bytes;
+  };
+
+  it("admits an NE image whose header lies beyond the initial probe", async () => {
+    const directory = await createTestTempDirectory("rea-ne-target-");
+    const path = join(directory, "legacy16.exe");
+    await writeFile(path, neImage(8192, "NE", 8192 + 64));
+    expect(await parseBinaryTarget(path)).toMatchObject({
+      ok: true,
+      value: { format: "ne", architecture: "x86", kind: "executable" },
+    });
+  });
+
+  it("refuses an NE header cut short by the end of the file", async () => {
+    const directory = await createTestTempDirectory("rea-ne-short-");
+    const path = join(directory, "short16.exe");
+    await writeFile(path, neImage(0x80, "NE", 0x80 + 63));
+    expect(await parseBinaryTarget(path)).toMatchObject({
+      ok: false,
+      error: {
+        message: expect.stringContaining(
+          "invalid or truncated NE header in MZ image",
+        ),
+      },
+    });
+  });
+
+  it.each(["LE", "LX"])(
+    "keeps refusing %s images beyond the initial probe",
+    async (signature) => {
+      const directory = await createTestTempDirectory("rea-le-target-");
+      const path = join(directory, "legacy32.exe");
+      await writeFile(path, neImage(8192, signature, 8192 + 64));
+      expect(await parseBinaryTarget(path)).toMatchObject({
+        ok: false,
+        error: {
+          message: expect.stringContaining(
+            `unsupported ${signature} executable in MZ image`,
+          ),
+        },
+      });
+    },
+  );
+});
+
 describe("DOS binary target I/O", () => {
   it("resolves a short-header PE signature beyond the bounded prefix", async () => {
     const directory = await createTestTempDirectory(

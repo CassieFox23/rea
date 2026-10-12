@@ -165,6 +165,46 @@ describe("Ghidra headless launcher", () => {
     expect(arguments_).toContain("-readOnly");
     expect(arguments_).toContain("-deleteProject");
   });
+  it("forces the NE loader and the protected-mode language for NE", () => {
+    const base = {
+      projectRoot: "/tmp/project",
+      targetPath: "/tmp/target",
+      bridgeScriptPath: "/package/bridge/ReaGhidraBridge.java",
+      descriptorPath: "/tmp/session.json",
+      ghidraLogPath: "/tmp/ghidra.log",
+      scriptLogPath: "/tmp/script.log",
+    };
+    const arguments_ = ghidraHeadlessArguments({ ...base, ne: true });
+    expectOptions(arguments_, [
+      ["-loader", "NeLoader"],
+      ["-processor", "x86:LE:16:Protected Mode"],
+      ["-cspec", "default"],
+    ]);
+    expect(arguments_).toContain("-readOnly");
+    expect(arguments_).toContain("-deleteProject");
+    expect(arguments_).not.toContain("MzLoader");
+    expect(arguments_).not.toContain("-loader-baseAddr");
+    expect(
+      arguments_.some((value) => value.endsWith("ReaGhidraPrepareCom.java")),
+    ).toBe(false);
+    for (const conflict of [
+      { psp: true as const },
+      { mipsSoftFloat: true as const },
+      { dosMz: true as const },
+      { dosCom: true as const },
+      { languageOverride: { languageId: "x86:LE:32:default" } },
+      {
+        rawBinary: {
+          languageId: "x86:LE:32:default",
+          compilerSpecId: "default",
+          baseAddr: "0x1000",
+        },
+      },
+    ])
+      expect(() =>
+        ghidraHeadlessArguments({ ...base, ne: true, ...conflict }),
+      ).toThrow(/NE import cannot be combined/u);
+  });
   it("builds a read-only ephemeral import with its bridge descriptor", () => {
     const arguments_ = ghidraHeadlessArguments({
       platform: "darwin",

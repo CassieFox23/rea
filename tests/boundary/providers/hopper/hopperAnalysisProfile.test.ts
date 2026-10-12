@@ -31,6 +31,16 @@ describe("Hopper analysis profiles", () => {
     });
   });
 
+  it("does not map NE to a Hopper loader", () => {
+    expect(hopperLoaderArgsForTarget(target("ne", "x86"))).toMatchObject({
+      ok: false,
+      error: {
+        _tag: "ProviderAdapterError",
+        operation: "resolve_analysis_profile",
+      },
+    });
+  });
+
   it("does not map caller-supplied raw binaries onto a Hopper loader", () => {
     expect(
       hopperLoaderArgsForTarget({
@@ -139,7 +149,7 @@ describe("Hopper analysis profiles", () => {
 });
 
 const target = (
-  format: "mach-o" | "elf" | "pe" | "dos-mz",
+  format: "mach-o" | "elf" | "pe" | "dos-mz" | "ne",
   architecture: "x86" | "x86_64" | "arm" | "arm64",
 ): BinaryTarget =>
   format === "pe"

@@ -74,6 +74,77 @@ const createElfClient = async (ghidra: GhidraProvider) => {
   return ghidra.createClient(target, resolved.value.profile);
 };
 
+describe("Ghidra provider NE lane", () => {
+  it("commits the NE loader and protected-mode language, and pins them in the handshake", async () => {
+    const seen: {
+      expectedLanguageId?: string;
+      expectedCompilerSpecId?: string;
+    }[] = [];
+    const launched: unknown[] = [];
+    const factory: GhidraProviderClientFactory = (options) => {
+      seen.push({
+        ...(options.expectedLanguageId === undefined
+          ? {}
+          : { expectedLanguageId: options.expectedLanguageId }),
+        ...(options.expectedCompilerSpecId === undefined
+          ? {}
+          : { expectedCompilerSpecId: options.expectedCompilerSpecId }),
+      });
+      launched.push(
+        (
+          options.launcher as unknown as {
+            options: { ne?: true; dosMz?: true };
+          }
+        ).options,
+      );
+      return {
+        start: () => Promise.resolve(ok(sessionInfo())),
+        callTool: () => Promise.resolve(ok(jsonValueSchema.parse({}))),
+        close: () => Promise.resolve(ok(null)),
+      };
+    };
+    const ghidra = provider(installationHost(), factory);
+    const target: BinaryTarget = {
+      path: "/tmp/legacy16.exe",
+      sha256: "b".repeat(64),
+      kind: "executable",
+      format: "ne",
+      architecture: "x86",
+      availableArchitectures: ["x86"],
+    };
+    expect(ghidra.inspectTargetSupport(target).status).toBe("supported");
+    const resolved = await ghidra.resolveAnalysisProfile(target);
+    if (!resolved.ok || resolved.value.profile === null)
+      throw new Error("Expected an NE profile");
+    expect(resolved.value.profile.parameters).toMatchObject({
+      target_format: "ne",
+      architecture: "x86",
+      loader: "NeLoader",
+      language_id: "x86:LE:16:Protected Mode",
+      compiler_spec_id: "default",
+    });
+    expect(resolved.value.profile.parameters).not.toHaveProperty(
+      "load_segment",
+    );
+    expect(resolved.value.profile.parameters).not.toHaveProperty(
+      "load_image_evidence",
+      "independent-mz-mapping-relocations-v1",
+    );
+    const client = ghidra.createClient(target, resolved.value.profile);
+    expect(seen).toEqual([
+      {
+        expectedLanguageId: "x86:LE:16:Protected Mode",
+        expectedCompilerSpecId: "default",
+      },
+    ]);
+    expect(launched[0]).toMatchObject({ ne: true });
+    expect(launched[0]).not.toHaveProperty("dosMz");
+    await client.close();
+    const windows = provider({ ...installationHost(), platform: "win32" });
+    expect(windows.inspectTargetSupport(target).status).toBe("unsupported");
+  });
+});
+
 describe("Ghidra provider", () => {
   it("commits DOS loader and real-mode language while retaining the CPU family", async () => {
     const ghidra = provider();

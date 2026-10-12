@@ -154,6 +154,8 @@ export interface GhidraHeadlessLauncherOptions {
   /** Select the admitted 16-bit real-mode MZ import instead of auto-detection. */
   readonly dosMz?: true;
   readonly dosCom?: true;
+  /** Select the admitted 16-bit protected-mode NE import. */
+  readonly ne?: true;
   readonly rawBinary?: {
     readonly languageId: string;
     readonly compilerSpecId: string;
@@ -267,6 +269,7 @@ export class GhidraHeadlessLauncher implements GhidraLauncher {
         ...(this.options.dosMz === undefined
           ? {}
           : { dosMz: this.options.dosMz }),
+        ...(this.options.ne === undefined ? {} : { ne: this.options.ne }),
         ...(this.options.rawBinary === undefined
           ? {}
           : { rawBinary: this.options.rawBinary }),
@@ -529,6 +532,8 @@ export interface GhidraHeadlessArgumentOptions {
   readonly mipsSoftFloat?: true;
   readonly dosMz?: true;
   readonly dosCom?: true;
+  /** Select the admitted 16-bit protected-mode NE import. */
+  readonly ne?: true;
   readonly rawBinary?: {
     readonly languageId: string;
     readonly compilerSpecId: string;
@@ -593,6 +598,18 @@ export const ghidraHeadlessArguments = (
     throw new Error(
       "A raw-binary import cannot be combined with a DOS import.",
     );
+  if (
+    options.ne === true &&
+    (options.psp === true ||
+      options.mipsSoftFloat === true ||
+      options.dosMz === true ||
+      options.dosCom === true ||
+      override !== undefined ||
+      rawBinary !== undefined)
+  )
+    throw new Error(
+      "An NE import cannot be combined with PSP, MIPS soft-float, DOS, raw-binary or a generic Ghidra language override.",
+    );
   return [
     options.projectRoot,
     "rea-project",
@@ -636,7 +653,16 @@ export const ghidraHeadlessArguments = (
                     ? []
                     : ["-cspec", override.compilerSpecId]),
                 ]
-              : []
+              : options.ne === true
+                ? [
+                    "-loader",
+                    "NeLoader",
+                    "-processor",
+                    "x86:LE:16:Protected Mode",
+                    "-cspec",
+                    "default",
+                  ]
+                : []
           : [
               "-loader",
               "BinaryLoader",

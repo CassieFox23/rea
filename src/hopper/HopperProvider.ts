@@ -138,6 +138,14 @@ export class HopperProvider implements AnalysisProviderCandidate {
           "Headerless raw-binary analysis requires the Ghidra adapter with a caller-supplied architecture and entry point.",
         diagnostics,
       };
+    if (target.format === "ne")
+      return {
+        status: "unsupported",
+        code: "target_format_unsupported",
+        reason:
+          "NE analysis requires the Ghidra 16-bit protected-mode adapter.",
+        diagnostics,
+      };
     if (target.format === "dos-mz" || target.format === "dos-com")
       return {
         status: "unsupported",

@@ -26,6 +26,25 @@ describe("Hopper provider capabilities", () => {
       reason: expect.stringContaining("Ghidra"),
     });
   });
+  it("declines NE targets with a provider-specific support reason", () => {
+    const config = parseConfig({});
+    if (!config.ok) throw new Error("expected valid configuration");
+    const provider = new HopperProvider(config.value, silentLogger, {});
+    expect(
+      provider.inspectTargetSupport({
+        path: "/tmp/legacy16.exe",
+        sha256: "a".repeat(64),
+        kind: "executable",
+        format: "ne",
+        architecture: "x86",
+        availableArchitectures: ["x86"],
+      }),
+    ).toMatchObject({
+      status: "unsupported",
+      code: "target_format_unsupported",
+      reason: expect.stringContaining("Ghidra"),
+    });
+  });
   it("declines DOS MZ targets with a provider-specific support reason", () => {
     const config = parseConfig({});
     if (!config.ok) throw new Error("expected valid configuration");

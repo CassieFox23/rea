@@ -41,6 +41,7 @@ import {
 
 import {
   parseExecutableHeader,
+  parseNeRecord,
   parsePeRecord,
   type ExecutableMetadata,
 } from "../domain/binaryTarget.js";
@@ -271,6 +272,7 @@ const detectArtifactFormat = async (
       | "pe"
       | "dos-mz"
       | "dos-com"
+      | "ne"
       | "raw-binary"
     >
   | undefined
@@ -340,6 +342,7 @@ const isArchiveFormat = (
     | "pe"
     | "dos-mz"
     | "dos-com"
+    | "ne"
     | "raw-binary"
   >,
 ): format is Extract<BinaryTarget, { kind: "archive" }>["format"] =>
@@ -538,7 +541,13 @@ const readPeMetadata = async (
   );
   if (windowsHeader.state !== "declared")
     return err("invalid Windows new-header signature in MZ image");
-  if (["NE", "LE", "LX"].includes(windowsHeader.signature))
+  if (windowsHeader.signature === "NE") {
+    const record = Buffer.alloc(64);
+    const recordRead = await handle.read(record, 0, record.length, offset);
+    throwIfTargetResolutionCancelled(signal);
+    return parseNeRecord(record.subarray(0, recordRead.bytesRead));
+  }
+  if (["LE", "LX"].includes(windowsHeader.signature))
     return err(`unsupported ${windowsHeader.signature} executable in MZ image`);
   const optionalHeaderSize = fileHeader.readUInt16LE(20);
   if (optionalHeaderSize > 4096) return err("invalid PE optional header size");
