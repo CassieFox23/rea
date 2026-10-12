@@ -1,7 +1,7 @@
 # DOS MZ and COM analysis with Ghidra
 
 REA can analyze DOS MZ executables, explicitly selected COM images, and 16-bit NE
-executables (Windows 3.x and OS/2 1.x) through the bring-your-own Ghidra adapter.
+executables through the bring-your-own Ghidra adapter.
 The Linux x64 and macOS arm64 verification lanes exercise actual 16-bit disassembly and
 decompilation through the CLI and stdio MCP. Provider admission accepts Ghidra
 12.1.x and that installation's declared JDK range. The verification lane uses
@@ -68,6 +68,9 @@ discovery. `list_procedures` also lists the imported API functions (for example
 `inspect_native_load_image` returns `unsupported` with measured mappings for NE:
 the independent MZ and COM verification does not cover NE segment tables. The
 runtime semantics of Windows or OS/2 are not emulated.
+
+No real-provider verification lane covers NE yet; `npm run verify:ghidra:dos`
+exercises DOS MZ only. OS/2 NE executables and NE DLLs remain unverified.
 
 LE and LX executables (DOS extenders, VxD drivers, OS/2 2.x and later) are
 still refused with `unsupported LE executable in MZ image` or the LX equivalent.
