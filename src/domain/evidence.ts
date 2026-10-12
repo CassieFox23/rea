@@ -49,6 +49,7 @@ const subjectSchema = z.object({
     "pe",
     "dos-mz",
     "dos-com",
+    "ne",
     "raw-binary",
     "zip",
     "ipa",

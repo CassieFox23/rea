@@ -151,6 +151,7 @@ export const resolveGhidraAnalysisProfile = async (
   const dosMz = target.format === "dos-mz";
   const dosCom = target.format === "dos-com";
   const dos = dosMz || dosCom;
+  const ne = target.format === "ne";
   const pinnedLanguage = ghidraPinnedLanguage(target);
   if (
     pinnedLanguage !== undefined &&
@@ -179,6 +180,16 @@ export const resolveGhidraAnalysisProfile = async (
           "resolve_analysis_profile",
           target.path,
           "REA_GHIDRA_LANGUAGE_ID cannot override the admitted DOS real-mode import.",
+        ),
+      ),
+    );
+  if (ne && languageOverride !== undefined)
+    return Promise.resolve(
+      err(
+        new AnalysisUnsupportedTargetError(
+          "resolve_analysis_profile",
+          target.path,
+          "REA_GHIDRA_LANGUAGE_ID cannot override the admitted NE protected-mode import.",
         ),
       ),
     );
@@ -236,15 +247,20 @@ export const resolveGhidraAnalysisProfile = async (
           ? "MzLoader"
           : dosCom
             ? "BinaryLoader"
-            : "auto-from-header",
+            : ne
+              ? "NeLoader"
+              : "auto-from-header",
         language_id: dos
           ? "x86:LE:16:Real Mode"
-          : (selectedLanguage?.languageId ?? "auto-from-header"),
-        compiler_spec_id: dos
-          ? "default"
-          : selectedLanguage === undefined
-            ? "auto-default"
-            : (selectedLanguage.compilerSpecId ?? "language-default"),
+          : ne
+            ? "x86:LE:16:Protected Mode"
+            : (selectedLanguage?.languageId ?? "auto-from-header"),
+        compiler_spec_id:
+          dos || ne
+            ? "default"
+            : selectedLanguage === undefined
+              ? "auto-default"
+              : (selectedLanguage.compilerSpecId ?? "language-default"),
         ...(languageOverride === undefined
           ? pinnedLanguage === undefined
             ? {}
