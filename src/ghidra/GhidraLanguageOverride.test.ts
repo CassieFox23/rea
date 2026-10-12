@@ -324,3 +324,25 @@ describe("Ghidra language override profile", () => {
     ).toBe(false);
   });
 });
+
+describe("Ghidra language override for NE", () => {
+  it("refuses a configured language for the pinned NE import", async () => {
+    const resolved = await provider({
+      REA_GHIDRA_LANGUAGE_ID: "x86:LE:32:default",
+    }).resolveAnalysisProfile({
+      path: "/legacy16.exe",
+      sha256: "b".repeat(64),
+      kind: "executable",
+      format: "ne",
+      architecture: "x86",
+      availableArchitectures: ["x86"],
+    });
+    if (resolved.ok) throw new Error("Expected the NE import to refuse it");
+    expect(resolved.error).toMatchObject({
+      _tag: "AnalysisUnsupportedTargetError",
+      operation: "resolve_analysis_profile",
+      reason:
+        "REA_GHIDRA_LANGUAGE_ID cannot override the admitted NE protected-mode import.",
+    });
+  });
+});
