@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { dosMz, pe } from "./binaryTarget.fixture.js";
-import { parseExecutableHeader } from "./binaryTarget.js";
+import { parseExecutableHeader, parseNeRecord } from "./binaryTarget.js";
 import { observeMzWindowsHeader, parseDosMzHeader } from "./dosMz.js";
 
 describe("DOS MZ load-module validation", () => {
@@ -145,7 +145,7 @@ describe("DOS MZ load-module validation", () => {
 });
 
 describe("MZ Windows header observations", () => {
-  it.each(["NE", "LE", "LX"])(
+  it.each(["LE", "LX"])(
     "distinguishes unsupported %s from DOS",
     (signature) => {
       const bytes = pe(0x8664);
@@ -209,7 +209,7 @@ describe("MZ Windows header observations", () => {
     });
   });
 
-  it.each(["NE", "LE", "LX"])(
+  it.each(["LE", "LX"])(
     "recognizes short-header %s signatures as Windows declarations",
     (signature) => {
       const stub = dosMz(64);
@@ -261,5 +261,66 @@ describe("MZ Windows header observations", () => {
     expect(parseExecutableHeader(bytes, "x64")).toMatchObject({ ok: false });
     bytes.writeUInt32LE(0xfffffff0, 60);
     expect(parseExecutableHeader(bytes, "x64")).toMatchObject({ ok: false });
+  });
+});
+
+describe("NE executable admission", () => {
+  it("admits a complete NE header as its own format, not DOS", () => {
+    const bytes = pe(0x8664);
+    bytes.writeUInt16LE(4, 8);
+    bytes.writeUInt16LE(64, 24);
+    bytes.write("NE", 64, "ascii");
+    expect(parseExecutableHeader(bytes, "x64")).toEqual({
+      ok: true,
+      value: {
+        format: "ne",
+        architecture: "x86",
+        availableArchitectures: ["x86"],
+      },
+    });
+  });
+
+  it("refuses an NE header cut short before its 64 bytes", () => {
+    const bytes = pe(0x8664);
+    bytes.writeUInt16LE(4, 8);
+    bytes.writeUInt16LE(64, 24);
+    bytes.write("NE", 64, "ascii");
+    expect(parseExecutableHeader(bytes.subarray(0, 64 + 63), "x64")).toEqual({
+      ok: false,
+      error: "invalid or truncated NE header in MZ image",
+    });
+  });
+
+  it("admits a short-header NE declaration as NE", () => {
+    const stub = dosMz(64);
+    const offset = stub.length;
+    stub.writeUInt32LE(offset, 60);
+    const bytes = Buffer.concat([stub, Buffer.alloc(64)]);
+    bytes.write("NE", offset, "ascii");
+
+    expect(observeMzWindowsHeader(bytes)).toMatchObject({
+      state: "declared",
+      offset,
+      signature: "NE",
+    });
+    expect(parseExecutableHeader(bytes, "x64")).toMatchObject({
+      ok: true,
+      value: { format: "ne", architecture: "x86" },
+    });
+  });
+
+  it("does not admit an NE signature with high bits set", () => {
+    const bytes = pe(0x8664);
+    bytes.writeUInt16LE(4, 8);
+    bytes.writeUInt16LE(64, 24);
+    bytes.set([0xce, 0xc5], 64);
+    expect(parseExecutableHeader(bytes, "x64")).toEqual({
+      ok: false,
+      error: "invalid or truncated Windows executable header in MZ image",
+    });
+    expect(parseNeRecord(bytes.subarray(64, 128))).toEqual({
+      ok: false,
+      error: "invalid or truncated NE header in MZ image",
+    });
   });
 });

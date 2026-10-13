@@ -30,7 +30,7 @@ export type ExecutableMetadata =
       readonly riscv: RiscvElfMetadata;
     }
   | {
-      readonly format: "mach-o" | "elf" | "dos-mz" | "dos-com";
+      readonly format: "mach-o" | "elf" | "dos-mz" | "dos-com" | "ne";
       readonly architecture: HeaderArchitecture;
       readonly availableArchitectures: readonly HeaderArchitecture[];
       readonly universalSlice?: never;
@@ -251,7 +251,9 @@ const parseMz = (
     const { offset } = windowsHeader;
     if (offset < 64 || offset > bytes.length - 24)
       return err("invalid or truncated Windows executable header in MZ image");
-    if (["NE", "LE", "LX"].includes(windowsHeader.signature))
+    if (windowsHeader.signature === "NE")
+      return parseNeRecord(bytes.subarray(offset));
+    if (["LE", "LX"].includes(windowsHeader.signature))
       return err(
         `unsupported ${windowsHeader.signature} executable in MZ image`,
       );
@@ -268,6 +270,28 @@ const parseMz = (
       })
     : parsed;
 };
+
+/**
+ * Admit a 16-bit New Executable (Windows 3.x or OS/2 1.x) behind an MZ stub
+ * after checking that its fixed 64-byte header is complete. Segment tables and
+ * relocations stay with the provider's NE loader.
+ */
+export const parseNeRecord = (
+  record: Buffer,
+): Result<ExecutableMetadata, string> => {
+  if (
+    record.length < NE_HEADER_BYTES ||
+    record.toString("latin1", 0, 2) !== "NE"
+  )
+    return err("invalid or truncated NE header in MZ image");
+  return ok({
+    format: "ne",
+    architecture: "x86",
+    availableArchitectures: ["x86"],
+  });
+};
+
+const NE_HEADER_BYTES = 64;
 
 /** Parse a bounded PE signature, COFF record, and optional header without I/O. */
 export const parsePeRecord = (

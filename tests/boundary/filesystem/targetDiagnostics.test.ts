@@ -7,7 +7,7 @@ import { projectAnalysisError } from "../../../src/domain/analysisErrorProjectio
 import { createTestTempDirectory } from "../../fixtures/temporaryDirectory.js";
 
 describe("executable format refusal diagnostics", () => {
-  it.each(["NE", "LE", "LX"] as const)(
+  it.each(["LE", "LX"] as const)(
     "reports unsupported %s executables without path advice",
     async (signature) => {
       const directory = await createTestTempDirectory(

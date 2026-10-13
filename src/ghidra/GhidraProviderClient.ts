@@ -512,6 +512,12 @@ export const createGhidraProviderClient = (input: {
           "Static DOS analysis does not emulate BIOS, DOS interrupts, device ports, or self-modifying unpacking code. Packed targets require a separately identified unpacked artifact for original-program analysis; appended overlays are not the initialized load module.",
         ]
       : []),
+    ...(target.format === "ne"
+      ? [
+          "NE uses Ghidra's New Executable loader and 16-bit x86 protected mode. Segment selectors and their load addresses are assigned by that loader; they are not the selectors a running Windows or OS/2 would hand out.",
+          "Static NE analysis does not emulate the Windows or OS/2 runtime, its imported API calls, or self-modifying code. The independent load-image verification that DOS MZ gets is not performed for NE.",
+        ]
+      : []),
     ...(target.format === "raw-binary"
       ? [
           "Headerless raw-binary analysis uses the caller-supplied architecture and entry address; file offset 0 is mapped at that address. Headers are not discovered from file bytes.",
@@ -552,6 +558,7 @@ export const createGhidraProviderClient = (input: {
         : {}),
       ...(softFloat ? { mipsSoftFloat: true as const } : {}),
       ...(target.format === "dos-mz" ? { dosMz: true } : {}),
+      ...(target.format === "ne" ? { ne: true } : {}),
       ...(target.format === "dos-com" ? { dosCom: true } : {}),
       ...(rawLanguage === undefined || target.format !== "raw-binary"
         ? {}
@@ -599,6 +606,12 @@ export const createGhidraProviderClient = (input: {
             expectedLanguageId: rawLanguage.languageId,
             expectedCompilerSpecId: rawLanguage.compilerSpecId,
           }),
+    ...(target.format === "ne"
+      ? {
+          expectedLanguageId: "x86:LE:16:Protected Mode",
+          expectedCompilerSpecId: "default",
+        }
+      : {}),
     ...(psp
       ? {
           expectedLanguageId: "Allegrex:LE:32:default",

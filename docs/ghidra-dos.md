@@ -1,6 +1,7 @@
 # DOS MZ and COM analysis with Ghidra
 
-REA can analyze DOS MZ executables and explicitly selected COM images through the bring-your-own Ghidra adapter.
+REA can analyze DOS MZ executables, explicitly selected COM images, and 16-bit NE
+executables through the bring-your-own Ghidra adapter.
 The Linux x64 and macOS arm64 verification lanes exercise actual 16-bit disassembly and
 decompilation through the CLI and stdio MCP. Provider admission accepts Ghidra
 12.1.x and that installation's declared JDK range. The verification lane uses
@@ -26,7 +27,8 @@ same admitted target and provider semantics.
 The classifier validates MZ page counts, initialized module length, header and
 relocation-table bounds, relocation destinations, and the initialized entry
 point. It distinguishes DOS load-module and relocation bytes from the Windows
-new-header field. PE remains PE; NE, LE, and LX declarations are explicitly
+new-header field. PE remains PE; an NE declaration is admitted as the `ne` format (see
+[NE executables](#ne-executables)); LE and LX declarations remain explicitly
 unsupported. A damaged declared Windows header does not silently become DOS.
 Inventory classification returns `unknown` when its bounded prefix cannot
 establish the format; this is distinct from the complete target admission check.
@@ -40,6 +42,38 @@ drift. Closing the session deletes the temporary project and snapshot.
 The profile also commits `function_body_evidence: complete-inclusive-ranges-v1`,
 so snapshots from older length-only Ghidra results do not satisfy the current
 profile.
+
+## NE executables
+
+A 16-bit New Executable behind an MZ stub opens as format `ne`, with no
+`--target-format` needed. REA checks that the 64-byte NE header lies inside the
+file; segment tables, entry tables and relocations are left to Ghidra.
+
+```bash
+rea inspect /absolute/path/to/win16.exe --provider ghidra --json
+```
+
+Ghidra imports a private target snapshot with `NeLoader`, language
+`x86:LE:16:Protected Mode`, and compiler specification `default`. These settings
+are committed in the analysis profile and the handshake rejects language or
+compiler drift. `REA_GHIDRA_LANGUAGE_ID` cannot override them. Hopper does not
+admit NE.
+
+NE addresses are not the DOS linear convention. Ghidra gives each NE segment a
+selector, and the returned default-space address is `selector << 16 | offset`
+(selector `0x1000`, offset `0x7c` is `0x1000007c`). Use the address returned by
+discovery. `list_procedures` also lists the imported API functions (for example
+`USER::MESSAGEBOX`) as external entries beside the local functions.
+
+`inspect_native_load_image` returns `unsupported` with measured mappings for NE:
+the independent MZ and COM verification does not cover NE segment tables. The
+runtime semantics of Windows or OS/2 are not emulated.
+
+No real-provider verification lane covers NE yet; `npm run verify:ghidra:dos`
+exercises DOS MZ only. OS/2 NE executables and NE DLLs remain unverified.
+
+LE and LX executables (DOS extenders, VxD drivers, OS/2 2.x and later) are
+still refused with `unsupported LE executable in MZ image` or the LX equivalent.
 
 ## Headerless COM images
 
@@ -80,7 +114,7 @@ selected bytes belong to its analysis module. The original file stays unchanged.
 
 ## Addresses and function extent
 
-Returned default-space addresses are linear byte coordinates. A Ghidra
+For DOS MZ and COM, returned default-space addresses are linear byte coordinates. A Ghidra
 segment:offset address has linear value `segment * 16 + offset`; multiple
 segment aliases can identify the same byte. REA accepts the returned linear
 address for subsequent lookups and leaves instruction decoding context with
