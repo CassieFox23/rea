@@ -141,7 +141,8 @@ rea analyze /absolute/path/to/program --provider hopper
 ```
 
 Set `REA_ANALYSIS_PROVIDER` for a standing preference. An explicit `--provider`
-overrides it. In MCP, pass `provider_id` to `open_binary`:
+overrides it. The [environment variable reference](environment.md) lists this and
+every other setting REA reads. In MCP, pass `provider_id` to `open_binary`:
 
 ```json
 {

@@ -2,6 +2,8 @@
 
 Run REA, connect your selected agents, and check the tools needed for your task.
 Setup previews configuration changes and asks for approval before applying them.
+The [environment variable reference](environment.md) lists every setting REA reads
+from the environment, with defaults.
 
 | Task                              | Section                                                                                             |
 | --------------------------------- | --------------------------------------------------------------------------------------------------- |

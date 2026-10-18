@@ -74,6 +74,7 @@ export default defineConfig({
         collapsed: true,
         items: [
           { text: "MCP contracts", link: "/mcp-contracts" },
+          { text: "Environment variables", link: "/environment" },
           { text: "Tool design", link: "/tool-design" },
           { text: "Testing", link: "/testing" },
           { text: "Client verification", link: "/client-verification" },
