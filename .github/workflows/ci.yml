@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main, "release/*"]
+    branches: [main, "release/*", rehearsal-2]
   schedule:
     - cron: "23 0-2,4-23 * * *"
     - cron: "23 3 * * *"
