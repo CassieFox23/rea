@@ -32,7 +32,8 @@ export const assertSameNames = (label, actual, expected) => {
   );
 };
 
-const SOURCE_PATHS = {
+/** Compiled module behind each catalog source, keyed as `loadSources` returns them. */
+export const SOURCE_PATHS = {
   packageMetadata: "dist/generatedPackageMetadata.js",
   catalogIdentity: "dist/catalogIdentity.js",
   cliCommandNames: "dist/cliCommandNames.js",
