@@ -6,12 +6,14 @@ import { silentLogger } from "../logger.js";
 import { ghidraProfileInstallationHost as host } from "./GhidraInstallation.fixture.js";
 import { GhidraProvider } from "./GhidraProvider.js";
 
-// Digests were computed by the unmodified upstream resolver (3ae7daa10,
-// raw branch inline) and must not change when the binary-loader policy is shared.
+// Digests commit to the current shared policy, including the instruction
+// status, load-image relocation-symbol, procedure search, byte-search and
+// bit-field base-type and inventory-search revisions that prevent reuse of snapshots with earlier
+// results.
 const RAW_DIGESTS = {
-  "6502": "adbec31711f31471f9cdbdbb2fc743a0ce6b46c9be5568bf90a3f51ef46e376d",
+  "6502": "d36ab0327d6063d0acb78c18b1037a73a13886b0a6a147218e58a7d6b851ccae",
   "x86-disabled-analyzer":
-    "493a02888eca575be286b5a96041af8007444586854edb974d6a0c12fd2768c4",
+    "39c710586b830f1f417a20b184dd0a3f007445704c5be10d7296ac46934306c0",
 } as const;
 
 const configFor = (environment: NodeJS.ProcessEnv) => {
@@ -33,7 +35,7 @@ const raw = (architecture: "6502" | "x86", entryPoint: string): BinaryTarget =>
   }) as unknown as BinaryTarget;
 
 describe("raw-binary analysis profile digest", () => {
-  it("keeps the 6502 raw profile digest from before the shared policy refactor", async () => {
+  it("commits the 6502 raw profile to the current shared policy", async () => {
     const ghidra = new GhidraProvider(configFor({}), silentLogger, {}, host);
     const resolved = await ghidra.resolveAnalysisProfile(raw("6502", "0x8001"));
     if (!resolved.ok) throw resolved.error;
@@ -44,6 +46,14 @@ describe("raw-binary analysis profile digest", () => {
       language_id: "6502:LE:16:default",
       language_selection: "caller-supplied-v1",
       load_image_evidence: "independent-raw-mapping-context-v4",
+      load_image_observations:
+        "source-mappings-entry-context-relocation-symbol-v3",
+      instruction_status: "unlisted-and-containing-code-data-v3",
+      inventory_search_projection: "provider-inventory-facts-v1",
+      byte_search_boundary: "contiguous-eligible-initialized-blocks-v1",
+      data_type_observations: "bit-field-base-and-lookup-v1",
+      instruction_references:
+        "exact-address-incoming-without-synthetic-entry-v3",
       analyzer_preset: "ghidra-default",
     });
   });
@@ -63,6 +73,7 @@ describe("raw-binary analysis profile digest", () => {
       RAW_DIGESTS["x86-disabled-analyzer"],
     );
     expect(resolved.value.profile?.parameters).toMatchObject({
+      inventory_search_projection: "provider-inventory-facts-v1",
       analysis_options: {
         disabled_analyzers: ["Aggressive Instruction Finder"],
       },
