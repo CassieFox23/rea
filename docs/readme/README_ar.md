@@ -381,6 +381,13 @@ applicable licenses.
 
 راجع [CONTRIBUTING.md](../../CONTRIBUTING.md) لإعداد بيئة التطوير والفحوص، و[دليل الاختبار](../development/testing.md) لمسارات التحقق، و[خريطة البنية](../architecture/architecture.mermaid) لهيكل المشروع.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
+  <img alt="نظرة عامة على بنية REA: الطبقات ومسارات الاعتماد" src="../assets/architecture-overview.svg" />
+</picture>
+
+هذه الصور مرسومة من `docs/architecture/architecture.mermaid` عند `015a02d57b`، وملف Mermaid يبقى المصدر. راجع [خريطة البنية الكاملة](../assets/architecture-map.svg).
+
 ## الترخيص
 
 [MIT](../../LICENSE)

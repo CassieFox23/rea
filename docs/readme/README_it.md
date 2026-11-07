@@ -378,6 +378,13 @@ Apprezzeremmo il tuo aiuto con REA! [Apri un issue](https://github.com/morluto/r
 
 Vedi [CONTRIBUTING.md](../../CONTRIBUTING.md) per la configurazione di sviluppo e i controlli, [testing](../development/testing.md) per le lane di verifica e la [mappa dell'architettura](../architecture/architecture.mermaid) per la struttura del progetto.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
+  <img alt="Panoramica dell'architettura di REA: livelli e percorsi di dipendenza" src="../assets/architecture-overview.svg" />
+</picture>
+
+Le immagini sono disegnate a partire da `docs/architecture/architecture.mermaid` a `015a02d57b`; il file Mermaid resta la fonte. Vedi la [mappa dell'architettura](../assets/architecture-map.svg) completa.
+
 ## License
 
 [MIT](../../LICENSE)

@@ -381,6 +381,13 @@ applicable licenses.
 
 ดู [CONTRIBUTING.md](../../CONTRIBUTING.md) สำหรับการตั้งค่าสภาพแวดล้อมพัฒนาและการตรวจสอบ ดู[การทดสอบ](../development/testing.md) สำหรับแนวทางการตรวจยืนยัน และ[แผนผังสถาปัตยกรรม](../architecture/architecture.mermaid) สำหรับโครงสร้างโปรเจกต์
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
+  <img alt="ภาพรวมสถาปัตยกรรมของ REA: ชั้นและเส้นทางการพึ่งพา" src="../assets/architecture-overview.svg" />
+</picture>
+
+ภาพเหล่านี้วาดจาก `docs/architecture/architecture.mermaid` ที่ `015a02d57b` โดยไฟล์ Mermaid ยังคงเป็นต้นฉบับ ดู[แผนผังสถาปัตยกรรม](../assets/architecture-map.svg)แบบเต็ม
+
 ## สัญญาอนุญาต
 
 [MIT](../../LICENSE)

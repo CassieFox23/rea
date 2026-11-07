@@ -375,6 +375,13 @@ REA'ya katkınızı bekliyoruz! Hata bildirmek veya özellik önermek için bir 
 
 Geliştirme ortamı ve kontroller için [CONTRIBUTING.md](../../CONTRIBUTING.md), doğrulama süreçleri için [test rehberi](../development/testing.md) ve proje yapısı için [mimari harita](../architecture/architecture.mermaid) belgelerine bakın.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
+  <img alt="REA mimarisine genel bakış: katmanlar ve bağımlılık yolları" src="../assets/architecture-overview.svg" />
+</picture>
+
+Bu görseller `015a02d57b` sürümündeki `docs/architecture/architecture.mermaid` dosyasından çizilmiştir; kaynak Mermaid dosyası olmaya devam eder. Tamamı için [mimari harita](../assets/architecture-map.svg) belgesine bakın.
+
 ## Lisans
 
 [MIT](../../LICENSE)

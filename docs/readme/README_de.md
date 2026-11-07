@@ -381,6 +381,13 @@ Wir freuen uns über deine Hilfe bei REA! [Öffne ein Issue](https://github.com/
 
 Die Entwicklungsumgebung und Prüfungen beschreibt [CONTRIBUTING.md](../../CONTRIBUTING.md), die Verifikationspfade der [Testleitfaden](../development/testing.md) und die Projektstruktur die [Architekturübersicht](../architecture/architecture.mermaid).
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
+  <img alt="Architekturübersicht von REA: Schichten und Abhängigkeitspfade" src="../assets/architecture-overview.svg" />
+</picture>
+
+Die Bilder sind aus `docs/architecture/architecture.mermaid` (Stand `015a02d57b`) gezeichnet; die Mermaid-Datei bleibt die Quelle. Siehe die vollständige [Architekturübersicht](../assets/architecture-map.svg).
+
 ## Lizenz
 
 [MIT](../../LICENSE)

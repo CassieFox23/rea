@@ -381,6 +381,13 @@ npx rea-agents@latest setup
 
 Δες το [CONTRIBUTING.md](../../CONTRIBUTING.md) για τη ρύθμιση του περιβάλλοντος ανάπτυξης και τους ελέγχους, τον [οδηγό δοκιμών](../development/testing.md) για τις διαδικασίες επαλήθευσης και τον [χάρτη αρχιτεκτονικής](../architecture/architecture.mermaid) για τη δομή του έργου.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
+  <img alt="Επισκόπηση της αρχιτεκτονικής του REA: στρώματα και διαδρομές εξάρτησης" src="../assets/architecture-overview.svg" />
+</picture>
+
+Οι εικόνες σχεδιάστηκαν από το `docs/architecture/architecture.mermaid` στο `015a02d57b`. Το αρχείο Mermaid παραμένει η πηγή. Δες τον πλήρη [χάρτη αρχιτεκτονικής](../assets/architecture-map.svg).
+
 ## Άδεια χρήσης
 
 [MIT](../../LICENSE)

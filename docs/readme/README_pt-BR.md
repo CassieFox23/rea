@@ -381,6 +381,13 @@ Sua ajuda com o REA é bem-vinda! [Abra uma issue](https://github.com/morluto/re
 
 Consulte [CONTRIBUTING.md](../../CONTRIBUTING.md) para configurar o ambiente de desenvolvimento e as verificações, o [guia de testes](../development/testing.md) para os fluxos de verificação e o [mapa da arquitetura](../architecture/architecture.mermaid) para a estrutura do projeto.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
+  <img alt="Visão geral da arquitetura do REA: camadas e caminhos de dependência" src="../assets/architecture-overview.svg" />
+</picture>
+
+As imagens foram desenhadas a partir de `docs/architecture/architecture.mermaid` em `015a02d57b`; o arquivo Mermaid continua sendo a fonte. Veja o [mapa da arquitetura](../assets/architecture-map.svg) completo.
+
 ## Licença
 
 [MIT](../../LICENSE)

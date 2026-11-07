@@ -378,6 +378,13 @@ Votre aide sur REA est la bienvenue ! [Ouvrez une issue](https://github.com/morl
 
 Consultez [CONTRIBUTING.md](../../CONTRIBUTING.md) pour l'environnement de développement et les vérifications, la page [tests](../development/testing.md) pour les procédures de vérification, et la [carte de l'architecture](../architecture/architecture.mermaid) pour la structure du projet.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
+  <img alt="Vue d'ensemble de l'architecture de REA : couches et chemins de dépendance" src="../assets/architecture-overview.svg" />
+</picture>
+
+Ces images sont dessinées à partir de `docs/architecture/architecture.mermaid` au commit `015a02d57b` ; le fichier Mermaid reste la source. Voir la [carte de l'architecture](../assets/architecture-map.svg) complète.
+
 ## Licence
 
 [MIT](../../LICENSE)

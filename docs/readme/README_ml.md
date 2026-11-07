@@ -384,6 +384,14 @@ REA-യ്ക്കായി നിങ്ങളുടെ സഹായം ഞങ�
 
 Development setup-നും checks-നും [CONTRIBUTING.md](../../CONTRIBUTING.md), verification lanes-നായി [testing](../development/testing.md), project ഘടനയ്ക്കായി [architecture map](../architecture/architecture.mermaid) എന്നിവ കാണുക.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
+  <img alt="REA architecture overview: layers and dependency paths" src="../assets/architecture-overview.svg" />
+</picture>
+
+These pictures are drawn from `docs/architecture/architecture.mermaid` at `015a02d57b`; the Mermaid file stays
+the source. See the full [architecture map](../assets/architecture-map.svg).
+
 ## ലൈസൻസ്
 
 [MIT](../../LICENSE)

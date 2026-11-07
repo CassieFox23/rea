@@ -469,6 +469,13 @@ Consultă [CONTRIBUTING.md](../../CONTRIBUTING.md) pentru pregătirea mediului d
 și [diagrama arhitecturii](../architecture/architecture.mermaid) pentru anumite straturi și
 relații de dependență.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
+  <img alt="Prezentare generală a arhitecturii REA: straturi și căi de dependență" src="../assets/architecture-overview.svg" />
+</picture>
+
+Imaginile sunt desenate pornind de la `docs/architecture/architecture.mermaid` la `015a02d57b`; fișierul Mermaid rămâne sursa. Vezi [diagrama arhitecturii](../assets/architecture-map.svg) completă.
+
 ## Licență
 
 [MIT](../../LICENSE)

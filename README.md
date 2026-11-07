@@ -465,6 +465,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and checks,
 [testing](docs/development/testing.md) for verification lanes, and the
 [architecture map](docs/architecture/architecture.mermaid) for selected layers and dependency paths.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/architecture-overview-dark.svg" />
+  <img alt="REA architecture overview: layers and dependency paths" src="docs/assets/architecture-overview.svg" />
+</picture>
+
+These pictures are drawn from `docs/architecture/architecture.mermaid` at
+`015a02d57b`; the Mermaid file stays the source. See the full
+[architecture map](docs/assets/architecture-map.svg).
+
 ## License
 
 [MIT](LICENSE)
