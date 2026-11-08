@@ -378,13 +378,6 @@ REA 用于合法的研究、教育、互操作性、软件保存，以及分析�
 
 开发设置和检查见 [CONTRIBUTING.md](../../CONTRIBUTING.md)，验证流程见[测试指南](../development/testing.md)，项目结构见[架构图](../architecture/architecture.mermaid)。
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
-  <img alt="REA 架构概览：分层与依赖路径" src="../assets/architecture-overview.svg" />
-</picture>
-
-这些图根据 `015a02d57b` 时的 `docs/architecture/architecture.mermaid` 绘制，Mermaid 文件仍是源头。完整版见[架构图](../assets/architecture-map.svg)。
-
 ## 许可证
 
 [MIT](../../LICENSE)

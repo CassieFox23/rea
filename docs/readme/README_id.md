@@ -399,13 +399,6 @@ Kami sangat menghargai bantuan Anda untuk REA! [Buat issue](https://github.com/m
 
 Lihat [CONTRIBUTING.md](../../CONTRIBUTING.md) untuk penyiapan pengembangan dan pemeriksaan, [pengujian](../development/testing.md) untuk tahapan verifikasi, serta [peta arsitektur](../architecture/architecture.mermaid) untuk struktur proyek.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
-  <img alt="Gambaran umum arsitektur REA: lapisan dan jalur dependensi" src="../assets/architecture-overview.svg" />
-</picture>
-
-Gambar-gambar ini digambar dari `docs/architecture/architecture.mermaid` pada `015a02d57b`; berkas Mermaid tetap menjadi sumber. Lihat [peta arsitektur](../assets/architecture-map.svg) lengkap.
-
 ## Lisensi
 
 [MIT](../../LICENSE)

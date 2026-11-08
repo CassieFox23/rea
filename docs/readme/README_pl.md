@@ -381,13 +381,6 @@ Chętnie przyjmiemy Twoją pomoc w rozwoju REA! [Otwórz zgłoszenie](https://gi
 
 Zobacz [CONTRIBUTING.md](../../CONTRIBUTING.md), aby poznać konfigurację środowiska programistycznego i kontrole, [testowanie](../development/testing.md), aby poznać ścieżki weryfikacji, oraz [mapę architektury](../architecture/architecture.mermaid), aby poznać strukturę projektu.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
-  <img alt="Przegląd architektury REA: warstwy i ścieżki zależności" src="../assets/architecture-overview.svg" />
-</picture>
-
-Te obrazy są narysowane na podstawie `docs/architecture/architecture.mermaid` w `015a02d57b`; źródłem pozostaje plik Mermaid. Zobacz pełną [mapę architektury](../assets/architecture-map.svg).
-
 ## Licencja
 
 [MIT](../../LICENSE)

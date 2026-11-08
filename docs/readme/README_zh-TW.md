@@ -380,13 +380,6 @@ REA 用於合法的研究、教育、互通性、軟體保存，以及分析你�
 
 開發設定和檢查見 [CONTRIBUTING.md](../../CONTRIBUTING.md)，驗證流程見[測試指南](../development/testing.md)，專案結構見[架構圖](../architecture/architecture.mermaid)。
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
-  <img alt="REA 架構概覽：分層與依賴路徑" src="../assets/architecture-overview.svg" />
-</picture>
-
-這些圖依據 `015a02d57b` 時的 `docs/architecture/architecture.mermaid` 繪製，Mermaid 檔案仍是來源。完整版見[架構圖](../assets/architecture-map.svg)。
-
 ## 授權條款
 
 [MIT](../../LICENSE)

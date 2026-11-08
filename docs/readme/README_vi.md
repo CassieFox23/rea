@@ -381,13 +381,6 @@ Chúng tôi hoan nghênh bạn giúp phát triển REA! [Mở issue](https://git
 
 Xem [CONTRIBUTING.md](../../CONTRIBUTING.md) về thiết lập môi trường phát triển và các bước kiểm tra, [hướng dẫn kiểm thử](../development/testing.md) về các luồng xác minh và [sơ đồ kiến trúc](../architecture/architecture.mermaid) về cấu trúc dự án.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
-  <img alt="Tổng quan kiến trúc REA: các tầng và đường phụ thuộc" src="../assets/architecture-overview.svg" />
-</picture>
-
-Các hình này được vẽ từ `docs/architecture/architecture.mermaid` tại `015a02d57b`; tệp Mermaid vẫn là nguồn gốc. Xem [sơ đồ kiến trúc](../assets/architecture-map.svg) đầy đủ.
-
 ## Giấy phép
 
 [MIT](../../LICENSE)

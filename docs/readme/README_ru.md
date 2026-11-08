@@ -381,13 +381,6 @@ applicable licenses.
 
 Настройка среды разработки и проверки описаны в [CONTRIBUTING.md](../../CONTRIBUTING.md), направления проверки — в [руководстве по тестированию](../development/testing.md), а структура проекта — на [схеме архитектуры](../architecture/architecture.mermaid).
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
-  <img alt="Обзор архитектуры REA: слои и пути зависимостей" src="../assets/architecture-overview.svg" />
-</picture>
-
-Эти изображения нарисованы по файлу `docs/architecture/architecture.mermaid` на `015a02d57b`; источником остаётся файл Mermaid. Полная версия — [схема архитектуры](../assets/architecture-map.svg).
-
 ## Лицензия
 
 [MIT](../../LICENSE)

@@ -360,13 +360,6 @@ applicable licenses.
 
 برای راه‌اندازی محیط توسعه و بررسی‌ها، [CONTRIBUTING.md](../../CONTRIBUTING.md)، برای مراحل اعتبارسنجی [آزمایش‌ها](../development/testing.md) و برای ساختار پروژه [نقشهٔ معماری](../architecture/architecture.mermaid) را ببینید.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
-  <img alt="نمای کلی معماری REA: لایه‌ها و مسیرهای وابستگی" src="../assets/architecture-overview.svg" />
-</picture>
-
-این تصویرها از روی `docs/architecture/architecture.mermaid` در `015a02d57b` ترسیم شده‌اند و فایل Mermaid همچنان منبع است. [نقشهٔ معماری](../assets/architecture-map.svg) کامل را ببینید.
-
 ## مجوز
 
 [MIT](../../LICENSE)

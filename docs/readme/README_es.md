@@ -381,13 +381,6 @@ applicable licenses.
 
 Consulta [CONTRIBUTING.md](../../CONTRIBUTING.md) para preparar el entorno de desarrollo y las comprobaciones, la [guía de pruebas](../development/testing.md) para los procesos de verificación y el [mapa de arquitectura](../architecture/architecture.mermaid) para la estructura del proyecto.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
-  <img alt="Resumen de la arquitectura de REA: capas y rutas de dependencia" src="../assets/architecture-overview.svg" />
-</picture>
-
-Las imágenes se dibujan a partir de `docs/architecture/architecture.mermaid` en `015a02d57b`; el archivo Mermaid sigue siendo la fuente. Consulta el [mapa de arquitectura](../assets/architecture-map.svg) completo.
-
 ## Licencia
 
 [MIT](../../LICENSE)

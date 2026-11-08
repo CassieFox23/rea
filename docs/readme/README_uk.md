@@ -381,13 +381,6 @@ applicable licenses.
 
 Налаштування середовища розробки й перевірки описано в [CONTRIBUTING.md](../../CONTRIBUTING.md), шляхи верифікації — у [посібнику тестування](../development/testing.md), а структуру проєкту — на [схемі архітектури](../architecture/architecture.mermaid).
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
-  <img alt="Огляд архітектури REA: шари й шляхи залежностей" src="../assets/architecture-overview.svg" />
-</picture>
-
-Ці зображення намальовано за файлом `docs/architecture/architecture.mermaid` на `015a02d57b`; джерелом лишається файл Mermaid. Повна версія — [схема архітектури](../assets/architecture-map.svg).
-
 ## Ліцензія
 
 [MIT](../../LICENSE)

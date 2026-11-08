@@ -381,13 +381,6 @@ REA への貢献を歓迎します！[issue を作成](https://github.com/morlut
 
 開発環境とチェックは [CONTRIBUTING.md](../../CONTRIBUTING.md)、検証レーンは[テストガイド](../development/testing.md)、プロジェクト構造は[アーキテクチャ図](../architecture/architecture.mermaid)を参照してください。
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../assets/architecture-overview-dark.svg" />
-  <img alt="REA のアーキテクチャ概要：レイヤーと依存経路" src="../assets/architecture-overview.svg" />
-</picture>
-
-これらの図は `015a02d57b` 時点の `docs/architecture/architecture.mermaid` から描いたもので、元データは引き続き Mermaid ファイルです。全体は[アーキテクチャ図](../assets/architecture-map.svg)を参照してください。
-
 ## ライセンス
 
 [MIT](../../LICENSE)
